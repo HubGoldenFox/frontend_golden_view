@@ -6,10 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "lint:fix": "next lint --fix > lint-output.txt 2>&1 && npm run format",
+    "ckpoint": "git add . && git commit -m 'CHECKPOINT: WIP - Safe point before changes'",
+    "hey": "openapi-ts && node post-hey.mjs"
   },
   "dependencies": {
+    "@hey-api/openapi-ts": "^0.87.5",
+    "axios": "^1.13.2",
+    "cmdk": "^1.1.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "lucide-react": "^0.554.0",
     "next": "16.0.3",
+    "prettier": "^3.6.2",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
