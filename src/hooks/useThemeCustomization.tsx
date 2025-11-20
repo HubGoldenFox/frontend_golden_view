@@ -1,10 +1,8 @@
-// TODO: configurar corretamente a requisição para salvar e carregar temas
-
 'use client'
 
 import { applyThemeVars } from '@/components/theme/applyThemeVars'
 import { useAuthTenant } from '@/hooks/useAuthTenant'
-import { useHook } from '@/hooks/useEmpresas'
+import { useHook } from '@/hooks/useTenants'
 import type { ThemeColors, ThemeGeneral } from '@/types/theme'
 import {
   DEFAULT_DARK_COLORS,
@@ -31,46 +29,39 @@ export function useThemeCustomization() {
     if (typeof document === 'undefined') return
     if (themeAppliedRef.current && !forceApply) return
 
-    try {
-      const mode = data.appearance?.themeMode ?? 'light'
-      const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches
-      const isDark = mode === 'dark' || (mode === 'system' && prefersDark)
+    const mode = data.appearance?.themeMode ?? 'light'
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const isDark = mode === 'dark' || (mode === 'system' && prefersDark)
 
-      const colors = mergeThemeColors(isDark ? data.dark : data.light, isDark)
-      if (colors) applyThemeVars(colors as unknown as Record<string, string>)
+    const colors = mergeThemeColors(isDark ? data.dark : data.light, isDark)
+    if (colors) applyThemeVars(colors as unknown as Record<string, string>)
 
-      if (data.appearance) {
-        document.documentElement.style.setProperty(
-          '--radius',
-          `${data.appearance.borderRadius}px`
-        )
-        document.documentElement.style.setProperty(
-          '--font-family',
-          data.appearance.fontFamily
-        )
-      }
-
-      const root = document.documentElement
-      if (isDark) root.classList.add('dark')
-      else root.classList.remove('dark')
-
-      themeAppliedRef.current = true
-      setThemeConfig(data)
-    } catch (error) {
-      console.error('❌ Erro ao aplicar tema:', error)
+    if (data.appearance) {
+      document.documentElement.style.setProperty(
+        '--radius',
+        `${data.appearance.borderRadius}px`
+      )
+      document.documentElement.style.setProperty(
+        '--font-family',
+        data.appearance.fontFamily
+      )
     }
+
+    const root = document.documentElement
+    if (isDark) root.classList.add('dark')
+    else root.classList.remove('dark')
+
+    themeAppliedRef.current = true
+    setThemeConfig(data)
   }, [])
 
   // 🔹 Salvar tema admin no localStorage
   const saveAdminThemeToStorage = useCallback((theme: ThemeGeneral) => {
     if (typeof window === 'undefined') return
-    try {
-      localStorage.setItem(ADMIN_THEME_STORAGE_KEY, JSON.stringify(theme))
-    } catch (error) {
-      console.error('❌ Erro ao salvar tema admin no localStorage:', error)
-    }
+
+    localStorage.setItem(ADMIN_THEME_STORAGE_KEY, JSON.stringify(theme))
   }, [])
 
   // 🔹 Carregar tema admin do localStorage
@@ -80,7 +71,6 @@ export function useThemeCustomization() {
       const stored = localStorage.getItem(ADMIN_THEME_STORAGE_KEY)
       return stored ? JSON.parse(stored) : null
     } catch (error) {
-      console.error('❌ Erro ao carregar tema admin do localStorage:', error)
       return null
     }
   }, [])
@@ -93,7 +83,7 @@ export function useThemeCustomization() {
         borderRadius: 6,
         fontFamily: 'Inter, sans-serif',
       },
-      title: isAdminMode ? 'GestorAI 360' : '',
+      title: isAdminMode ? 'Golden View' : '',
       light: DEFAULT_LIGHT_COLORS as ThemeColors,
       dark: DEFAULT_DARK_COLORS as ThemeColors,
     }),
@@ -116,7 +106,7 @@ export function useThemeCustomization() {
         // Modo Tenant: Carrega da API
         try {
           const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/empresas/tenant`,
+            `${process.env.NEXT_PUBLIC_API_URL}/tenants`,
             {
               params: { all_data: false, id: tenant.id },
               timeout: 5000,
@@ -127,11 +117,9 @@ export function useThemeCustomization() {
           if (config) {
             themeToApply = config
           } else {
-            console.log('Nenhum tema encontrado no tenant')
             themeToApply = createDefaultTheme()
           }
         } catch (error) {
-          console.error('Erro ao carregar tema do tenant:', error)
           themeToApply = createDefaultTheme()
         }
       } else {
@@ -142,7 +130,6 @@ export function useThemeCustomization() {
       setThemeConfig(themeToApply)
       applyTheme(themeToApply, true)
     } catch (err) {
-      console.error('Erro crítico ao carregar tema:', err)
       const fallbackTheme = createDefaultTheme()
       setThemeConfig(fallbackTheme)
       applyTheme(fallbackTheme, true)
@@ -184,7 +171,6 @@ export function useThemeCustomization() {
 
         setThemeConfig(newTheme)
       } catch (error) {
-        console.error('❌ Erro ao salvar tema:', error)
         throw error
       } finally {
         setSaving(false)

@@ -1,4 +1,4 @@
-import { AppSchemaUsuariosSchemaGetUsuariosOutput as Usuario } from '@/client/types.gen'
+import { GetUsuarios as Usuario } from '@/client/types.gen'
 import api from '@/config/axiosConfig'
 import axios from 'axios'
 

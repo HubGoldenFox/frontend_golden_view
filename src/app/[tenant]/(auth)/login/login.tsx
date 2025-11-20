@@ -1,6 +1,7 @@
 'use client'
 
 import Logo from '@/components/Logo'
+import { useToast } from '@/contexts/ToastContext'
 import { useAuthTenant } from '@/hooks/useAuthTenant'
 import { useThemeCustomization } from '@/hooks/useThemeCustomization'
 import { useRouter } from 'next/navigation'
@@ -17,8 +18,10 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
     isLoading: tenantLoading,
     isAdminMode,
     loginWithTenant,
+    loginAsAdmin,
     auth,
   } = useAuthTenant()
+  const { toast } = useToast()
 
   const { loading, loadTheme } = useThemeCustomization()
 
@@ -38,40 +41,45 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
     }
   }, [tenantLoading, tenant, loadTheme])
 
-  // 🔹 Redirecionamento quando autenticado
-  useEffect(() => {
-    const tenantId = localStorage.getItem('tenant-id')
-    if (tenantId && tenant) {
-      if (tenantId === tenant?.id) {
-        if (auth.token && auth.isAuthenticated && !loading && !tenantLoading) {
-          let path = '/'
+  //🔹 Redirecionamento quando autenticado
+  // useEffect(() => {
+  //   console.log(tenant)
 
-          if (!isAdminMode && tenant) {
-            // Para tenant, usa subdomínio ou domínio
-            path = tenant.subdominio
-              ? `/${tenant.subdominio}`
-              : tenant.dominio
-                ? `/${tenant.dominio}`
-                : '/'
-          }
-          if (auth && auth.sessao && auth.sessao.papel) {
-            const { papel } = auth.sessao
+  //   const tenantId = localStorage.getItem('tenant-id')
+  //   if (
+  //     tenantId &&
+  //     tenant &&
+  //     tenantId === tenant.id &&
+  //     tenant?.ativo === true
+  //   ) {
+  //     if (auth.token && auth.isAuthenticated && !loading && !tenantLoading) {
+  //       const basePath =
+  //         !isAdminMode && tenant
+  //           ? tenant.subdominio
+  //             ? `/${tenant.subdominio}`
+  //             : tenant.dominio
+  //               ? `/${tenant.dominio}`
+  //               : '/'
+  //           : '/'
 
-            if (
-              (papel && papel.toLowerCase() == 'admin') ||
-              (papel && papel.toLowerCase() == 'gestor')
-            ) {
-              router.push(`${path}/admin/dashboard`)
-            } else if (papel && papel.toLowerCase() === 'atendente') {
-              router.push(`${path}/attendant`)
-            } else {
-              setError({ password: 'Sem permissão para acessar a aplicação' })
-            }
-          }
-        }
-      }
-    }
-  }, [auth, loading, tenantLoading, tenant, isAdminMode, router])
+  //       const userRole = auth?.sessao?.papel?.toLowerCase()
+
+  //       const roleRoutes = {
+  //         admin: `${basePath}/admin/dashboard`,
+  //         gestor: `${basePath}/admin/dashboard`,
+  //         atendente: `${basePath}/attendant`,
+  //       }
+
+  //       if (userRole && roleRoutes[userRole as keyof typeof roleRoutes]) {
+  //         router.push(roleRoutes[userRole as keyof typeof roleRoutes])
+  //       } else {
+  //         setError({ password: 'Sem permissão para acessar a aplicação' })
+  //       }
+  //     }
+  //   } else if (tenant && tenant?.slug === 'admin' && tenant?.ativo === true) {
+  //     router.push(`${tenant?.slug}/admin/dashboard`)
+  //   }
+  // }, [auth, loading, tenantLoading, tenant, isAdminMode, router])
 
   const validateForm = () => {
     const newErrors: typeof error = {}
@@ -89,14 +97,19 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
     setError({})
 
     try {
-      await loginWithTenant(username, password)
+      if (tenant?.slug === 'admin' || isAdminMode) {
+        await loginAsAdmin(username, password)
+      } else {
+        await loginWithTenant(username, password)
+      }
+      router.push(`/${tenant?.slug}/admin/dashboard`)
     } catch (err: any) {
       const errorMessage =
         err?.response?.data?.detail[0]?.msg ||
         err?.response?.data?.detail ||
         err?.message ||
         'Credenciais inválidas. Verifique seu usuário e senha.'
-      // setError({ password: errorMessage })
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -225,7 +238,7 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
 
         <div className="text-center mt-6 text-xs text-muted-foreground animate-fade-in-delay">
           <p>
-            &copy; {new Date().getFullYear()} GestorIA 360. Todos os direitos
+            &copy; {new Date().getFullYear()} Golden View. Todos os direitos
             reservados.
           </p>
         </div>

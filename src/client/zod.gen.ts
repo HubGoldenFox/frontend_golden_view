@@ -3,199 +3,20 @@
 import { z } from 'zod'
 
 /**
- * GetPlanos
- */
-export const zGetPlanos = z.object({
-  nome: z.optional(z.string()),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  preco: z.optional(z.number()),
-  ativo: z.optional(z.boolean()),
-  max_usuarios: z.optional(z.int()),
-  max_analises: z.optional(z.int()),
-  recursos: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.iso.datetime()),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-})
-
-/**
- * GetEmpresas
- */
-export const zGetEmpresas = z.object({
-  nome: z.optional(z.string()),
-  nome_fantasia: z.optional(z.union([z.string(), z.null()])),
-  cnpj: z.optional(z.union([z.string(), z.null()])),
-  segmento: z.optional(z.union([z.string(), z.null()])),
-  email: z.optional(z.union([z.string(), z.null()])),
-  telefone: z.optional(z.union([z.string(), z.null()])),
-  celular: z.optional(z.union([z.string(), z.null()])),
-  cep: z.optional(z.union([z.string(), z.null()])),
-  endereco: z.optional(z.union([z.string(), z.null()])),
-  numero: z.optional(z.union([z.string(), z.null()])),
-  complemento: z.optional(z.union([z.string(), z.null()])),
-  bairro: z.optional(z.union([z.string(), z.null()])),
-  cidade: z.optional(z.union([z.string(), z.null()])),
-  estado: z.optional(z.union([z.string(), z.null()])),
-  ativo: z.optional(z.boolean()),
-  data_ativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  data_desativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  dominio: z.optional(z.union([z.string(), z.null()])),
-  subdominio: z.optional(z.union([z.string(), z.null()])),
-  plano_id: z.optional(z.uuid()),
-  plano_nome: z.optional(z.union([z.string(), z.null()])),
-  valor_contrato: z.optional(z.union([z.number(), z.null()])),
-  ciclo_cobranca: z.optional(z.string()),
-  max_usuarios: z.optional(z.int()),
-  max_analises: z.optional(z.int()),
-  configuracao: z.optional(
-    z.union([z.record(z.string(), z.unknown()), z.null()])
-  ),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.iso.datetime()),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  plano: z.optional(z.union([zGetPlanos, z.null()])),
-})
-
-/**
- * GetPapeis
- */
-export const zGetPapeis = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  ativo: z.optional(z.union([z.boolean(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-})
-
-/**
- * GetFuncionalidades
- */
-export const zGetFuncionalidades = z.object({
-  chave: z.optional(z.union([z.int(), z.null()])),
-  nome: z.optional(z.union([z.string(), z.null()])),
-  escopo: z.optional(z.union([z.string(), z.null()])),
-  caminho: z.optional(z.union([z.string(), z.null()])),
-  metodo: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  categoria: z.optional(z.union([z.string(), z.null()])),
-  sensivel: z.optional(z.union([z.boolean(), z.null()])),
-  versao: z.optional(z.union([z.int(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-})
-
-/**
- * GetUsuariosFuncionalidades
- */
-export const zGetUsuariosFuncionalidades = z.object({
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  funcionalidade_id: z.optional(z.union([z.uuid(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  funcionalidades: z.optional(z.union([zGetFuncionalidades, z.null()])),
-})
-
-/**
- * GetEquipes
- */
-export const zAppSchemaEquipeUsuariosSchemaGetEquipes = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  status: z.optional(z.union([z.boolean(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-})
-
-/**
- * GetUsuarios
- */
-export const zAppSchemaEquipeUsuariosSchemaGetUsuarios = z.object({
-  nome_usuario: z.optional(z.union([z.string(), z.null()])),
-  nome_completo: z.optional(z.union([z.string(), z.null()])),
-  nivel: z.optional(z.union([z.string(), z.null()])),
-  empresa: z.optional(z.union([z.string(), z.null()])),
-  telefone: z.optional(z.union([z.string(), z.null()])),
-  email: z.optional(z.union([z.string(), z.null()])),
-  ativo: z.optional(z.union([z.boolean(), z.null()])),
-  papel: z.optional(z.union([z.string(), z.null()])),
-  papel_id: z.optional(z.union([z.uuid(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-})
-
-/**
- * GetEquipeUsuarios
- */
-export const zGetEquipeUsuarios = z.object({
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  equipe_id: z.optional(z.union([z.uuid(), z.null()])),
-  id: z.uuid(),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  equipes: z.optional(
-    z.union([zAppSchemaEquipeUsuariosSchemaGetEquipes, z.null()])
-  ),
-  usuarios: z.optional(
-    z.union([zAppSchemaEquipeUsuariosSchemaGetUsuarios, z.null()])
-  ),
-})
-
-/**
- * GetUsuarios
- */
-export const zAppSchemaUsuariosSchemaGetUsuariosOutput = z.object({
-  nome_usuario: z.optional(z.string()),
-  nome_completo: z.optional(z.union([z.string(), z.null()])),
-  nivel: z.optional(z.union([z.string(), z.null()])),
-  telefone: z.optional(z.union([z.string(), z.null()])),
-  email: z.optional(z.string()),
-  ativo: z.optional(z.boolean()),
-  papel: z.optional(z.union([z.string(), z.null()])),
-  papel_id: z.optional(z.union([z.uuid(), z.null()])),
-  empresa_id: z.optional(z.union([z.uuid(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.iso.datetime()),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  empresa: z.optional(z.union([zGetEmpresas, z.null()])),
-  papeis: z.optional(z.union([zGetPapeis, z.null()])),
-  usuarios_funcionalidades: z.optional(
-    z.array(z.union([zGetUsuariosFuncionalidades, z.null()]))
-  ),
-  equipe_usuarios: z.optional(z.array(z.union([zGetEquipeUsuarios, z.null()]))),
-})
-
-/**
- * GetEquipes
- */
-export const zAppSchemaEquipesSchemaGetEquipesOutput = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  status: z.optional(z.union([z.boolean(), z.null()])),
-  id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  usuarios: z.optional(
-    z.union([zAppSchemaUsuariosSchemaGetUsuariosOutput, z.null()])
-  ),
-  equipe_usuarios: z.optional(z.array(z.union([zGetEquipeUsuarios, z.null()]))),
-})
-
-/**
  * SortOp
  */
-export const zAppSchemaEmpresasSchemaSortOp = z.enum(['ASC', 'DESC'])
+export const zAppSchemaPapeisFuncionalidadesSchemaSortOp = z.enum([
+  'ASC',
+  'DESC',
+])
 
 /**
  * CursorDirection
  */
-export const zAppSchemaEmpresasSchemaCursorDirection = z.enum(['next', 'prev'])
+export const zAppSchemaPapeisFuncionalidadesSchemaCursorDirection = z.enum([
+  'next',
+  'prev',
+])
 
 /**
  * UsuariosInclude
@@ -203,13 +24,10 @@ export const zAppSchemaEmpresasSchemaCursorDirection = z.enum(['next', 'prev'])
 export const zUsuariosInclude = z.enum([
   'nome_usuario',
   'nome_completo',
-  'nivel',
   'telefone',
   'email',
   'ativo',
-  'papel',
   'papel_id',
-  'empresa_id',
   'id',
   'criado_em',
   'atualizado_em',
@@ -237,49 +55,88 @@ export const zUsuariosFuncionalidadesExpand = z.enum([
 /**
  * UsuariosExpand
  */
-export const zUsuariosExpand = z.enum([
-  'empresas',
-  'papeis',
-  'usuarios_funcionalidades',
-  'equipe_usuarios',
-  'atendimentos',
-  'equipes',
-  'templates',
-])
+export const zUsuariosExpand = z.enum(['papeis', 'usuarios_funcionalidades'])
 
 /**
- * TranscriptionCallback
+ * TenantsInclude
  */
-export const zTranscriptionCallback = z.object({
-  job_id: z.optional(z.union([z.string(), z.null()])),
-  tenant_id: z.optional(z.union([z.string(), z.null()])),
-  atendimento_id: z.optional(z.union([z.string(), z.null()])),
-  transcription: z.string(),
-  status: z.string(),
-  error: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * TemplatesInclude
- */
-export const zTemplatesInclude = z.enum([
-  'usuarios_id',
-  'equipe_id',
+export const zTenantsInclude = z.enum([
   'nome',
-  'descricao',
-  'conteudo',
-  'tags',
-  'tipo',
+  'slug',
+  'schema_criado',
+  'ativo',
+  'configuracao',
   'id',
   'criado_em',
   'atualizado_em',
 ])
 
 /**
+ * GetFuncionalidades
+ */
+export const zGetFuncionalidades = z.object({
+  chave: z.optional(z.union([z.int(), z.null()])),
+  nome: z.optional(z.string()),
+  escopo: z.optional(z.string()),
+  caminho: z.optional(z.string()),
+  metodo: z.optional(z.string()),
+  descricao: z.optional(z.union([z.string(), z.null()])),
+  categoria: z.optional(z.union([z.string(), z.null()])),
+  sensivel: z.optional(z.union([z.boolean(), z.null()])),
+  versao: z.optional(z.union([z.int(), z.null()])),
+  id: z.optional(z.uuid()),
+  criado_em: z.optional(z.iso.datetime()),
+  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
+})
+
+/**
+ * GetUsuariosFuncionalidades
+ */
+export const zGetUsuariosFuncionalidades = z.object({
+  usuario_id: z.optional(z.uuid()),
+  funcionalidade_id: z.optional(z.uuid()),
+  id: z.optional(z.uuid()),
+  criado_em: z.optional(z.iso.datetime()),
+  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
+  funcionalidades: z.optional(z.union([zGetFuncionalidades, z.null()])),
+})
+
+/**
+ * GetPapeis
+ */
+export const zGetPapeis = z.object({
+  nome: z.optional(z.string()),
+  ativo: z.optional(z.boolean()),
+  descricao: z.optional(z.union([z.string(), z.null()])),
+  id: z.optional(z.uuid()),
+  criado_em: z.optional(z.iso.datetime()),
+  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
+})
+
+/**
+ * GetUsuarios
+ */
+export const zGetUsuarios = z.object({
+  nome_usuario: z.optional(z.string()),
+  nome_completo: z.optional(z.union([z.string(), z.null()])),
+  telefone: z.optional(z.union([z.string(), z.null()])),
+  email: z.optional(z.string()),
+  ativo: z.optional(z.boolean()),
+  papel_id: z.optional(z.union([z.uuid(), z.null()])),
+  id: z.optional(z.uuid()),
+  criado_em: z.optional(z.iso.datetime()),
+  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
+  papeis: z.optional(z.union([zGetPapeis, z.null()])),
+  usuarios_funcionalidades: z.optional(
+    z.array(z.union([zGetUsuariosFuncionalidades, z.null()]))
+  ),
+})
+
+/**
  * ResponseLoginSessionToken
  */
 export const zResponseLoginSessionToken = z.object({
-  user: zAppSchemaUsuariosSchemaGetUsuariosOutput,
+  user: zGetUsuarios,
 })
 
 /**
@@ -289,7 +146,7 @@ export const zResponseLoginAcessToken = z.object({
   access_token: z.string(),
   token_type: z.string(),
   permission: z.union([z.array(z.string()), z.null()]),
-  user: zAppSchemaUsuariosSchemaGetUsuariosOutput,
+  user: zGetUsuarios,
   papel: z.string(),
 })
 
@@ -308,16 +165,6 @@ export const zResponseEsqueciSenha = z.object({
 })
 
 /**
- * RelatorioCallback
- */
-export const zRelatorioCallback = z.object({
-  task_id: z.string(),
-  tenant_id: z.optional(z.union([z.string(), z.null()])),
-  resultado: z.record(z.string(), z.unknown()),
-  processado_em: z.number(),
-})
-
-/**
  * PostUsuariosFuncionalidades
  */
 export const zPostUsuariosFuncionalidades = z.object({
@@ -331,40 +178,24 @@ export const zPostUsuariosFuncionalidades = z.object({
 export const zPostUsuarios = z.object({
   nome_usuario: z.string(),
   nome_completo: z.optional(z.union([z.string(), z.null()])),
-  nivel: z.optional(z.union([z.string(), z.null()])),
   telefone: z.optional(z.union([z.string(), z.null()])),
   email: z.string(),
   senha: z.string(),
   ativo: z.optional(z.boolean()).default(true),
-  papel: z.optional(z.union([z.string(), z.null()])),
   papel_id: z.optional(z.union([z.uuid(), z.null()])),
-  empresa_id: z.optional(z.union([z.uuid(), z.null()])),
 })
 
 /**
- * PostTemplates
+ * PostTenants
  */
-export const zPostTemplates = z.object({
-  usuarios_id: z.uuid(),
-  equipe_id: z.optional(z.union([z.uuid(), z.null()])),
+export const zPostTenants = z.object({
   nome: z.string(),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  conteudo: z.string(),
-  tags: z.optional(z.union([z.string(), z.null()])),
-  tipo: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * PostPlanos
- */
-export const zPostPlanos = z.object({
-  nome: z.string(),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  preco: z.number(),
+  slug: z.string(),
+  schema_criado: z.optional(z.boolean()).default(false),
   ativo: z.optional(z.boolean()).default(true),
-  max_usuarios: z.optional(z.int()).default(20),
-  max_analises: z.optional(z.int()).default(100),
-  recursos: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
+  configuracao: z.optional(
+    z.union([z.record(z.string(), z.unknown()), z.null()])
+  ),
 })
 
 /**
@@ -394,94 +225,9 @@ export const zPostFuncionalidades = z.object({
   metodo: z.string(),
   descricao: z.optional(z.union([z.string(), z.null()])),
   categoria: z.optional(z.union([z.string(), z.null()])),
-  sensivel: z.optional(z.union([z.boolean(), z.null()])),
-  versao: z.optional(z.union([z.int(), z.null()])),
+  sensivel: z.optional(z.union([z.boolean(), z.null()])).default(false),
+  versao: z.optional(z.union([z.int(), z.null()])).default(1),
 })
-
-/**
- * PostEquipes
- */
-export const zPostEquipes = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  status: z.optional(z.union([z.boolean(), z.null()])),
-})
-
-/**
- * PostEquipeUsuarios
- */
-export const zPostEquipeUsuarios = z.object({
-  usuario_id: z.uuid(),
-  equipe_id: z.uuid(),
-})
-
-/**
- * PostEmpresas
- */
-export const zPostEmpresas = z.object({
-  nome: z.string(),
-  senha_admin: z.string(),
-  usuario_admin: z.string(),
-  nome_fantasia: z.optional(z.union([z.string(), z.null()])),
-  cnpj: z.optional(z.union([z.string(), z.null()])),
-  segmento: z.optional(z.union([z.string(), z.null()])),
-  email: z.optional(z.union([z.string(), z.null()])),
-  telefone: z.optional(z.union([z.string(), z.null()])),
-  celular: z.optional(z.union([z.string(), z.null()])),
-  cep: z.optional(z.union([z.string(), z.null()])),
-  endereco: z.optional(z.union([z.string(), z.null()])),
-  numero: z.optional(z.union([z.string(), z.null()])),
-  complemento: z.optional(z.union([z.string(), z.null()])),
-  bairro: z.optional(z.union([z.string(), z.null()])),
-  cidade: z.optional(z.union([z.string(), z.null()])),
-  estado: z.optional(z.union([z.string(), z.null()])),
-  ativo: z.optional(z.boolean()).default(true),
-  data_ativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  data_desativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  dominio: z.optional(z.union([z.string(), z.null()])),
-  subdominio: z.optional(z.union([z.string(), z.null()])),
-  plano_id: z.uuid(),
-  plano_nome: z.optional(z.union([z.string(), z.null()])),
-  valor_contrato: z.optional(z.union([z.number(), z.null()])),
-  ciclo_cobranca: z.optional(z.string()).default('MENSAL'),
-  max_usuarios: z.optional(z.int()).default(20),
-  max_analises: z.optional(z.int()).default(100),
-  configuracao: z.optional(
-    z.union([z.record(z.string(), z.unknown()), z.null()])
-  ),
-})
-
-/**
- * PostAtendimentos
- */
-export const zPostAtendimentos = z.object({
-  id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  nome_atendente: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  status: z.optional(z.union([z.string(), z.null()])),
-  total_chunks: z.optional(z.union([z.int(), z.null()])),
-  file_format: z.optional(z.union([z.string(), z.null()])),
-  filename: z.optional(z.union([z.string(), z.string(), z.null()])),
-  relatorio: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
-  transcricao: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * PlanosInclude
- */
-export const zPlanosInclude = z.enum([
-  'nome',
-  'descricao',
-  'preco',
-  'ativo',
-  'max_usuarios',
-  'max_analises',
-  'recursos',
-  'id',
-  'criado_em',
-  'atualizado_em',
-])
 
 /**
  * PatchUsuariosFuncionalidades
@@ -497,40 +243,24 @@ export const zPatchUsuariosFuncionalidades = z.object({
 export const zPatchUsuarios = z.object({
   nome_usuario: z.optional(z.union([z.string(), z.null()])),
   nome_completo: z.optional(z.union([z.string(), z.null()])),
-  nivel: z.optional(z.union([z.string(), z.null()])),
   telefone: z.optional(z.union([z.string(), z.null()])),
   email: z.optional(z.union([z.string(), z.null()])),
   senha: z.optional(z.union([z.string(), z.null()])),
   ativo: z.optional(z.union([z.boolean(), z.null()])),
-  papel: z.optional(z.union([z.string(), z.null()])),
   papel_id: z.optional(z.union([z.uuid(), z.null()])),
-  empresa_id: z.optional(z.union([z.uuid(), z.null()])),
 })
 
 /**
- * PatchTemplates
+ * PatchTenants
  */
-export const zPatchTemplates = z.object({
-  usuarios_id: z.optional(z.union([z.uuid(), z.null()])),
-  equipe_id: z.optional(z.union([z.uuid(), z.null()])),
+export const zPatchTenants = z.object({
   nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  conteudo: z.optional(z.union([z.string(), z.null()])),
-  tags: z.optional(z.union([z.string(), z.null()])),
-  tipo: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * PatchPlanos
- */
-export const zPatchPlanos = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  preco: z.optional(z.union([z.number(), z.null()])),
+  slug: z.optional(z.union([z.string(), z.null()])),
+  schema_criado: z.optional(z.union([z.boolean(), z.null()])),
   ativo: z.optional(z.union([z.boolean(), z.null()])),
-  max_usuarios: z.optional(z.union([z.int(), z.null()])),
-  max_analises: z.optional(z.union([z.int(), z.null()])),
-  recursos: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
+  configuracao: z.optional(
+    z.union([z.record(z.string(), z.unknown()), z.null()])
+  ),
 })
 
 /**
@@ -562,71 +292,6 @@ export const zPatchFuncionalidades = z.object({
   categoria: z.optional(z.union([z.string(), z.null()])),
   sensivel: z.optional(z.union([z.boolean(), z.null()])),
   versao: z.optional(z.union([z.int(), z.null()])),
-})
-
-/**
- * PatchEquipes
- */
-export const zPatchEquipes = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  status: z.optional(z.union([z.boolean(), z.null()])),
-})
-
-/**
- * PatchEquipeUsuarios
- */
-export const zPatchEquipeUsuarios = z.object({
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  equipe_id: z.optional(z.union([z.uuid(), z.null()])),
-})
-
-/**
- * PatchEmpresas
- */
-export const zPatchEmpresas = z.object({
-  nome: z.optional(z.union([z.string(), z.null()])),
-  nome_fantasia: z.optional(z.union([z.string(), z.null()])),
-  cnpj: z.optional(z.union([z.string(), z.null()])),
-  segmento: z.optional(z.union([z.string(), z.null()])),
-  email: z.optional(z.union([z.string(), z.null()])),
-  telefone: z.optional(z.union([z.string(), z.null()])),
-  celular: z.optional(z.union([z.string(), z.null()])),
-  cep: z.optional(z.union([z.string(), z.null()])),
-  endereco: z.optional(z.union([z.string(), z.null()])),
-  numero: z.optional(z.union([z.string(), z.null()])),
-  complemento: z.optional(z.union([z.string(), z.null()])),
-  bairro: z.optional(z.union([z.string(), z.null()])),
-  cidade: z.optional(z.union([z.string(), z.null()])),
-  estado: z.optional(z.union([z.string(), z.null()])),
-  ativo: z.optional(z.union([z.boolean(), z.null()])),
-  data_ativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  data_desativacao: z.optional(z.union([z.iso.datetime(), z.null()])),
-  dominio: z.optional(z.union([z.string(), z.null()])),
-  subdominio: z.optional(z.union([z.string(), z.null()])),
-  plano_id: z.optional(z.union([z.uuid(), z.null()])),
-  plano_nome: z.optional(z.union([z.string(), z.null()])),
-  valor_contrato: z.optional(z.union([z.number(), z.null()])),
-  ciclo_cobranca: z.optional(z.union([z.string(), z.null()])),
-  max_usuarios: z.optional(z.union([z.int(), z.null()])),
-  max_analises: z.optional(z.union([z.int(), z.null()])),
-  configuracao: z.optional(
-    z.union([z.record(z.string(), z.unknown()), z.null()])
-  ),
-})
-
-/**
- * PatchAtendimentos
- */
-export const zPatchAtendimentos = z.object({
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  status: z.optional(z.union([z.string(), z.null()])),
-  total_chunks: z.optional(z.union([z.int(), z.null()])),
-  file_format: z.optional(z.union([z.string(), z.null()])),
-  filename: z.optional(z.union([z.string(), z.null()])),
-  relatorio: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
-  transcricao: z.optional(z.union([z.string(), z.null()])),
 })
 
 /**
@@ -669,12 +334,13 @@ export const zNovaSenha = z.object({
 
 /**
  * Meta
+ *
  * Metadados para operações
  */
 export const zMeta = z.object({
   total_items: z.optional(z.int()).default(0),
   total_query: z.optional(z.int()).default(0),
-  items_per_page: z.optional(z.union([z.int(), z.null()])),
+  items_per_page: z.optional(z.union([z.int(), z.null()])).default(10),
   current_page: z.optional(z.union([z.int(), z.null()])),
   total_pages: z.optional(z.union([z.int(), z.null()])),
   next_cursor: z.optional(z.union([z.string(), z.null()])),
@@ -686,30 +352,16 @@ export const zMeta = z.object({
 })
 
 /**
- * GetTenantEmpresas
+ * GetTenants
  */
-export const zGetTenantEmpresas = z.object({
-  id: z.optional(z.uuid()),
+export const zGetTenants = z.object({
   nome: z.optional(z.string()),
-  nome_fantasia: z.optional(z.union([z.string(), z.null()])),
-  dominio: z.optional(z.union([z.string(), z.null()])),
-  subdominio: z.optional(z.union([z.string(), z.null()])),
+  slug: z.optional(z.string()),
+  schema_criado: z.optional(z.boolean()),
+  ativo: z.optional(z.boolean()),
   configuracao: z.optional(
     z.union([z.record(z.string(), z.unknown()), z.null()])
   ),
-})
-
-/**
- * GetTemplates
- */
-export const zGetTemplates = z.object({
-  usuarios_id: z.optional(z.uuid()),
-  equipe_id: z.optional(z.union([z.uuid(), z.null()])),
-  nome: z.optional(z.string()),
-  descricao: z.optional(z.union([z.string(), z.null()])),
-  conteudo: z.optional(z.string()),
-  tags: z.optional(z.union([z.string(), z.null()])),
-  tipo: z.optional(z.union([z.string(), z.null()])),
   id: z.optional(z.uuid()),
   criado_em: z.optional(z.iso.datetime()),
   atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
@@ -719,40 +371,13 @@ export const zGetTemplates = z.object({
  * GetPapeisFuncionalidades
  */
 export const zGetPapeisFuncionalidades = z.object({
-  papel_id: z.optional(z.union([z.uuid(), z.null()])),
-  funcionalidade_id: z.optional(z.union([z.uuid(), z.null()])),
+  papel_id: z.optional(z.uuid()),
+  funcionalidade_id: z.optional(z.uuid()),
   id: z.optional(z.uuid()),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
+  criado_em: z.optional(z.iso.datetime()),
   atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
   funcionalidades: z.optional(z.union([zGetFuncionalidades, z.null()])),
   papeis: z.optional(z.union([zGetPapeis, z.null()])),
-})
-
-/**
- * GetLinkUsuarios
- */
-export const zGetLinkUsuarios = z.object({
-  token: z.string(),
-})
-
-/**
- * GetAtendimentos
- */
-export const zGetAtendimentos = z.object({
-  usuario_id: z.optional(z.union([z.uuid(), z.null()])),
-  nome_atendente: z.optional(z.union([z.string(), z.null()])),
-  status: z.optional(z.union([z.string(), z.null()])),
-  total_chunks: z.optional(z.union([z.int(), z.null()])),
-  file_format: z.optional(z.union([z.string(), z.null()])),
-  filename: z.optional(z.union([z.string(), z.null()])),
-  relatorio: z.optional(z.union([z.record(z.string(), z.unknown()), z.null()])),
-  transcricao: z.optional(z.union([z.string(), z.null()])),
-  id: z.uuid(),
-  criado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  atualizado_em: z.optional(z.union([z.iso.datetime(), z.null()])),
-  usuarios: z.optional(
-    z.union([zAppSchemaUsuariosSchemaGetUsuariosOutput, z.null()])
-  ),
 })
 
 /**
@@ -774,17 +399,6 @@ export const zFuncionalidadesInclude = z.enum([
 ])
 
 /**
- * FileType
- */
-export const zFileType = z.enum([
-  'application',
-  'image',
-  'text',
-  'video',
-  'audio',
-])
-
-/**
  * EsqueciSenha
  */
 export const zEsqueciSenha = z.object({
@@ -795,7 +409,9 @@ export const zEsqueciSenha = z.object({
  * Detail
  */
 export const zDetail = z.object({
-  loc: z.optional(z.union([z.array(z.union([z.string(), z.int()])), z.null()])),
+  loc: z
+    .optional(z.union([z.array(z.union([z.string(), z.int()])), z.null()]))
+    .default(['global']),
   msg: z.string(),
   type: z.optional(z.union([z.string(), z.null()])),
   debug: z.optional(z.union([z.string(), z.null()])),
@@ -806,87 +422,6 @@ export const zDetail = z.object({
  */
 export const zErrorSchema = z.object({
   detail: z.array(zDetail),
-})
-
-/**
- * EquipesInclude
- */
-export const zEquipesInclude = z.enum([
-  'nome',
-  'descricao',
-  'usuario_id',
-  'status',
-  'id',
-  'criado_em',
-  'atualizado_em',
-])
-
-/**
- * EquipesExpand
- */
-export const zEquipesExpand = z.enum(['usuarios', 'equipe_usuarios'])
-
-/**
- * EquipeUsuariosInclude
- */
-export const zEquipeUsuariosInclude = z.enum([
-  'usuario_id',
-  'equipe_id',
-  'id',
-  'criado_em',
-  'atualizado_em',
-])
-
-/**
- * EquipeUsuariosExpand
- */
-export const zEquipeUsuariosExpand = z.enum(['equipes', 'usuarios'])
-
-/**
- * EmpresasInclude
- */
-export const zEmpresasInclude = z.enum([
-  'nome',
-  'nome_fantasia',
-  'cnpj',
-  'segmento',
-  'email',
-  'telefone',
-  'celular',
-  'cep',
-  'endereco',
-  'numero',
-  'complemento',
-  'bairro',
-  'cidade',
-  'estado',
-  'ativo',
-  'data_ativacao',
-  'data_desativacao',
-  'dominio',
-  'subdominio',
-  'plano_id',
-  'plano_nome',
-  'valor_contrato',
-  'ciclo_cobranca',
-  'max_usuarios',
-  'max_analises',
-  'configuracao',
-  'id',
-  'criado_em',
-  'atualizado_em',
-])
-
-/**
- * EmpresasExpand
- */
-export const zEmpresasExpand = z.enum(['planos'])
-
-/**
- * Body_start_recording
- */
-export const zBodyStartRecording = z.object({
-  type_data: z.optional(zFileType),
 })
 
 /**
@@ -906,88 +441,10 @@ export const zBodyLoginAccessToken = z.object({
 })
 
 /**
- * Body_finish_recording
- */
-export const zBodyFinishRecording = z.object({
-  filename: z.string(),
-  atendimento_id: z.string(),
-})
-
-/**
- * Body_finalizar_atendimentos_chunk
- */
-export const zBodyFinalizarAtendimentosChunk = z.object({
-  forcar_reprocessamento: z.optional(z.boolean()).default(false),
-})
-
-/**
- * Body_criar_atendimentos_v2
- */
-export const zBodyCriarAtendimentosV2 = z.object({
-  id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  nome_atendente: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  status: z.optional(z.union([z.string(), z.null()])),
-  total_chunks: z.optional(z.union([z.int(), z.null()])),
-  file_format: z.optional(z.union([z.string(), z.null()])),
-  filename: z.optional(z.union([z.string(), z.null()])),
-  transcricao: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * Body_criar_atendimentos_chunk
- */
-export const zBodyCriarAtendimentosChunk = z.object({
-  id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  nome_atendente: z.optional(z.union([z.string(), z.null()])),
-  usuario_id: z.optional(z.union([z.uuid(), z.string(), z.null()])),
-  status: z.optional(z.union([z.string(), z.null()])),
-  total_chunks: z.optional(z.union([z.int(), z.null()])),
-  file_format: z.optional(z.union([z.string(), z.null()])),
-  filename: z.optional(z.union([z.string(), z.null()])),
-  transcricao: z.optional(z.union([z.string(), z.null()])),
-})
-
-/**
- * Body_create_file_file__post
- */
-export const zBodyCreateFileFilePost = z.object({
-  file: z.string(),
-  type_data: zFileType,
-})
-
-/**
- * Body_append_chunk
- */
-export const zBodyAppendChunk = z.object({
-  chunk: z.string(),
-  filename: z.string(),
-})
-
-/**
- * AtendimentosInclude
- */
-export const zAtendimentosInclude = z.enum([
-  'usuario_id',
-  'status',
-  'nome_atendente',
-  'filename',
-  'transcricao',
-  'id',
-  'criado_em',
-  'atualizado_em',
-])
-
-/**
- * AtendimentosExpand
- */
-export const zAtendimentosExpand = z.enum(['usuarios'])
-
-/**
  * ApiSuccess[NoneType]
  */
 export const zApiSuccessNoneType = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
   data: z.optional(z.union([z.array(z.null()), z.null()])),
 })
@@ -996,54 +453,34 @@ export const zApiSuccessNoneType = z.object({
  * ApiSuccess[GetUsuarios]
  */
 export const zApiSuccessGetUsuarios = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(
-    z.union([z.array(zAppSchemaUsuariosSchemaGetUsuariosOutput), z.null()])
-  ),
+  data: z.optional(z.union([z.array(zGetUsuarios), z.null()])),
 })
 
 /**
  * ApiSuccess[GetUsuariosFuncionalidades]
  */
 export const zApiSuccessGetUsuariosFuncionalidades = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
   data: z.optional(z.union([z.array(zGetUsuariosFuncionalidades), z.null()])),
 })
 
 /**
- * ApiSuccess[GetTenantEmpresas]
+ * ApiSuccess[GetTenants]
  */
-export const zApiSuccessGetTenantEmpresas = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+export const zApiSuccessGetTenants = z.object({
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetTenantEmpresas), z.null()])),
-})
-
-/**
- * ApiSuccess[GetTemplates]
- */
-export const zApiSuccessGetTemplates = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetTemplates), z.null()])),
-})
-
-/**
- * ApiSuccess[GetPlanos]
- */
-export const zApiSuccessGetPlanos = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetPlanos), z.null()])),
+  data: z.optional(z.union([z.array(zGetTenants), z.null()])),
 })
 
 /**
  * ApiSuccess[GetPapeis]
  */
 export const zApiSuccessGetPapeis = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
   data: z.optional(z.union([z.array(zGetPapeis), z.null()])),
 })
@@ -1052,7 +489,7 @@ export const zApiSuccessGetPapeis = z.object({
  * ApiSuccess[GetPapeisFuncionalidades]
  */
 export const zApiSuccessGetPapeisFuncionalidades = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
   data: z.optional(z.union([z.array(zGetPapeisFuncionalidades), z.null()])),
 })
@@ -1061,199 +498,10 @@ export const zApiSuccessGetPapeisFuncionalidades = z.object({
  * ApiSuccess[GetFuncionalidades]
  */
 export const zApiSuccessGetFuncionalidades = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
+  msg: z.optional(z.union([z.string(), z.null()])).default('Success'),
   meta: z.optional(z.union([zMeta, z.null()])),
   data: z.optional(z.union([z.array(zGetFuncionalidades), z.null()])),
 })
-
-/**
- * ApiSuccess[GetEquipes]
- */
-export const zApiSuccessGetEquipes = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(
-    z.union([z.array(zAppSchemaEquipesSchemaGetEquipesOutput), z.null()])
-  ),
-})
-
-/**
- * ApiSuccess[GetEquipeUsuarios]
- */
-export const zApiSuccessGetEquipeUsuarios = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetEquipeUsuarios), z.null()])),
-})
-
-/**
- * ApiSuccess[GetEmpresas]
- */
-export const zApiSuccessGetEmpresas = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetEmpresas), z.null()])),
-})
-
-/**
- * ApiSuccess[GetAtendimentos]
- */
-export const zApiSuccessGetAtendimentos = z.object({
-  msg: z.optional(z.union([z.string(), z.null()])),
-  meta: z.optional(z.union([zMeta, z.null()])),
-  data: z.optional(z.union([z.array(zGetAtendimentos), z.null()])),
-})
-
-export const zListTenantsTenantsGetData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-export const zRemoveTenantTenantsTenantIdDeleteData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    tenant_id: z.string(),
-  }),
-  query: z.optional(z.never()),
-})
-
-export const zLerAtendimentosData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      nome_atendente: z.optional(z.union([z.string(), z.null()])),
-      usuario_id: z.optional(z.union([z.string(), z.null()])),
-      status: z.optional(z.union([z.string(), z.null()])),
-      filename: z.optional(z.union([z.string(), z.null()])),
-      transcricao: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zAtendimentosInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zAtendimentosInclude)).default([]),
-      exclude: z.optional(z.array(zAtendimentosInclude)).default([]),
-      expand: z.optional(z.union([z.array(zAtendimentosExpand), z.null()])),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zAtendimentosInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerAtendimentosResponse = zApiSuccessGetAtendimentos
-
-export const zCriarAtendimentosData = z.object({
-  body: zPostAtendimentos,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarAtendimentosResponse = zGetAtendimentos
-
-export const zProcessarAudioData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      nome_atendente: z.optional(z.union([z.string(), z.null()])),
-      usuario_id: z.optional(z.union([z.string(), z.null()])),
-      status: z.optional(z.union([z.string(), z.null()])),
-      filename: z.optional(z.union([z.string(), z.null()])),
-      transcricao: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zAtendimentosInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zAtendimentosInclude)).default([]),
-      exclude: z.optional(z.array(zAtendimentosInclude)).default([]),
-      expand: z.optional(z.union([z.array(zAtendimentosExpand), z.null()])),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zAtendimentosInclude),
-    })
-  ),
-})
-
-export const zRemoverAtendimentosData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverAtendimentosResponse = zApiSuccessNoneType
-
-export const zAtualizarAtendimentosData = z.object({
-  body: zPatchAtendimentos,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarAtendimentosResponse = zApiSuccessNoneType
-
-export const zCriarAtendimentosV2Data = z.object({
-  body: z.optional(zBodyCriarAtendimentosV2),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarAtendimentosV2Response = zGetAtendimentos
-
-export const zCriarAtendimentosChunkData = z.object({
-  body: z.optional(zBodyCriarAtendimentosChunk),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarAtendimentosChunkResponse = zGetAtendimentos
-
-export const zFinalizarAtendimentosChunkData = z.object({
-  body: z.optional(zBodyFinalizarAtendimentosChunk),
-  path: z.optional(z.never()),
-  query: z.object({
-    atendimento_id: z.string(),
-  }),
-})
-
-/**
- * Successful Response
- */
-export const zFinalizarAtendimentosChunkResponse = zGetAtendimentos
 
 export const zLerFuncionalidadesData = z.object({
   body: z.optional(z.never()),
@@ -1276,13 +524,15 @@ export const zLerFuncionalidadesData = z.object({
       limit: z.optional(z.union([z.int(), z.null()])),
       offset: z.optional(z.union([z.int(), z.null()])),
       cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zFuncionalidadesInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
+      cursor_field: z.optional(zFuncionalidadesInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
       include: z.optional(z.array(zFuncionalidadesInclude)).default([]),
       exclude: z.optional(z.array(zFuncionalidadesInclude)).default([]),
       count_only: z.optional(z.boolean()).default(false),
       distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
       sort_field: z.optional(zFuncionalidadesInclude),
     })
   ),
@@ -1330,86 +580,78 @@ export const zAtualizarFuncionalidadesData = z.object({
  */
 export const zAtualizarFuncionalidadesResponse = zApiSuccessNoneType
 
-export const zCreateFileFilePostData = z.object({
-  body: zBodyCreateFileFilePost,
+export const zLerTenantsData = z.object({
+  body: z.optional(z.never()),
+  path: z.optional(z.never()),
+  query: z.optional(
+    z.object({
+      all_data: z.optional(z.boolean()).default(true),
+      nome: z.optional(z.union([z.string(), z.null()])),
+      slug: z.optional(z.union([z.string(), z.null()])),
+      schema_criado: z.optional(z.union([z.string(), z.null()])),
+      ativo: z.optional(z.union([z.string(), z.null()])),
+      configuracao: z.optional(z.union([z.string(), z.null()])),
+      id: z.optional(z.union([z.string(), z.null()])),
+      criado_em: z.optional(z.union([z.string(), z.null()])),
+      atualizado_em: z.optional(z.union([z.string(), z.null()])),
+      limit: z.optional(z.union([z.int(), z.null()])),
+      offset: z.optional(z.union([z.int(), z.null()])),
+      cursor: z.optional(z.union([z.string(), z.null()])),
+      cursor_field: z.optional(zTenantsInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
+      include: z.optional(z.array(zTenantsInclude)).default([]),
+      exclude: z.optional(z.array(zTenantsInclude)).default([]),
+      count_only: z.optional(z.boolean()).default(false),
+      distinct: z.optional(z.boolean()).default(false),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
+      sort_field: z.optional(zTenantsInclude),
+    })
+  ),
+})
+
+/**
+ * Successful Response
+ */
+export const zLerTenantsResponse = zApiSuccessGetTenants
+
+export const zCriarTenantsData = z.object({
+  body: zPostTenants,
   path: z.optional(z.never()),
   query: z.optional(z.never()),
 })
 
 /**
- * Response Create File File  Post
  * Successful Response
  */
-export const zCreateFileFilePostResponse = z.string()
+export const zCriarTenantsResponse = zApiSuccessNoneType
 
-export const zStartRecordingData = z.object({
-  body: z.optional(zBodyStartRecording),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Response Start Recording
- * Successful Response
- */
-export const zStartRecordingResponse = z.record(z.string(), z.unknown())
-
-export const zAppendChunkData = z.object({
-  body: zBodyAppendChunk,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Response Append Chunk
- * Successful Response
- */
-export const zAppendChunkResponse = z.record(z.string(), z.unknown())
-
-export const zGetFileByFilenameFileFilenameGetData = z.object({
+export const zRemoverTenantsData = z.object({
   body: z.optional(z.never()),
   path: z.object({
-    filename: z.string(),
+    id: z.uuid(),
   }),
   query: z.optional(z.never()),
 })
 
-export const zGetMinioFileUrlByFilenameFileMinioFileUrlFilenameGetData =
-  z.object({
-    body: z.optional(z.never()),
-    path: z.object({
-      filename: z.string(),
-    }),
-    query: z.optional(z.never()),
-  })
+/**
+ * Successful Response
+ */
+export const zRemoverTenantsResponse = zApiSuccessNoneType
 
-export const zDownloadFileFileDownloadFilenameGetData = z.object({
-  body: z.optional(z.never()),
+export const zAtualizarTenantsData = z.object({
+  body: zPatchTenants,
   path: z.object({
-    filename: z.string(),
+    id: z.uuid(),
   }),
-  query: z.optional(z.never()),
-})
-
-export const zDownloadFileFileDownloadFilenameGet2Data = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    filename: z.string(),
-  }),
-  query: z.optional(z.never()),
-})
-
-export const zListAllFilesFileFilesListGetData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
   query: z.optional(z.never()),
 })
 
 /**
- * Response List All Files File Files List  Get
  * Successful Response
  */
-export const zListAllFilesFileFilesListGetResponse = z.array(z.string())
+export const zAtualizarTenantsResponse = zApiSuccessNoneType
 
 export const zLerUsuariosData = z.object({
   body: z.optional(z.never()),
@@ -1419,27 +661,26 @@ export const zLerUsuariosData = z.object({
       all_data: z.optional(z.boolean()).default(true),
       nome_usuario: z.optional(z.union([z.string(), z.null()])),
       nome_completo: z.optional(z.union([z.string(), z.null()])),
-      nivel: z.optional(z.union([z.string(), z.null()])),
       telefone: z.optional(z.union([z.string(), z.null()])),
       email: z.optional(z.union([z.string(), z.null()])),
       ativo: z.optional(z.union([z.string(), z.null()])),
-      papel: z.optional(z.union([z.string(), z.null()])),
       papel_id: z.optional(z.union([z.string(), z.null()])),
-      empresa_id: z.optional(z.union([z.string(), z.null()])),
       id: z.optional(z.union([z.string(), z.null()])),
       criado_em: z.optional(z.union([z.string(), z.null()])),
       atualizado_em: z.optional(z.union([z.string(), z.null()])),
       limit: z.optional(z.union([z.int(), z.null()])),
       offset: z.optional(z.union([z.int(), z.null()])),
       cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zUsuariosInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
+      cursor_field: z.optional(zUsuariosInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
       include: z.optional(z.array(zUsuariosInclude)).default([]),
       exclude: z.optional(z.array(zUsuariosInclude)).default([]),
       expand: z.optional(z.union([z.array(zUsuariosExpand), z.null()])),
       count_only: z.optional(z.boolean()).default(false),
       distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
       sort_field: z.optional(zUsuariosInclude),
     })
   ),
@@ -1487,33 +728,6 @@ export const zAtualizarUsuariosData = z.object({
  */
 export const zAtualizarUsuariosResponse = zApiSuccessNoneType
 
-export const zLinkUsuariosData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.object({
-    papel_id: z.string(),
-    token_expiration: z.int(),
-  }),
-})
-
-/**
- * Successful Response
- */
-export const zLinkUsuariosResponse = zGetLinkUsuarios
-
-export const zCriarUsuariosLinkData = z.object({
-  body: zPostUsuarios,
-  path: z.object({
-    token: z.string(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarUsuariosLinkResponse = zApiSuccessNoneType
-
 export const zLerUsuariosFuncionalidadesData = z.object({
   body: z.optional(z.never()),
   path: z.optional(z.never()),
@@ -1528,8 +742,10 @@ export const zLerUsuariosFuncionalidadesData = z.object({
       limit: z.optional(z.union([z.int(), z.null()])),
       offset: z.optional(z.union([z.int(), z.null()])),
       cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zUsuariosFuncionalidadesInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
+      cursor_field: z.optional(zUsuariosFuncionalidadesInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
       include: z.optional(z.array(zUsuariosFuncionalidadesInclude)).default([]),
       exclude: z.optional(z.array(zUsuariosFuncionalidadesInclude)).default([]),
       expand: z.optional(
@@ -1537,7 +753,7 @@ export const zLerUsuariosFuncionalidadesData = z.object({
       ),
       count_only: z.optional(z.boolean()).default(false),
       distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
       sort_field: z.optional(zUsuariosFuncionalidadesInclude),
     })
   ),
@@ -1586,18 +802,6 @@ export const zAtualizarUsuariosFuncionalidadesData = z.object({
  */
 export const zAtualizarUsuariosFuncionalidadesResponse = zApiSuccessNoneType
 
-export const zFinishRecordingData = z.object({
-  body: zBodyFinishRecording,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Response Finish Recording
- * Successful Response
- */
-export const zFinishRecordingResponse = z.record(z.string(), z.unknown())
-
 export const zLerPapeisData = z.object({
   body: z.optional(z.never()),
   path: z.optional(z.never()),
@@ -1613,13 +817,15 @@ export const zLerPapeisData = z.object({
       limit: z.optional(z.union([z.int(), z.null()])),
       offset: z.optional(z.union([z.int(), z.null()])),
       cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zPapeisInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
+      cursor_field: z.optional(zPapeisInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
       include: z.optional(z.array(zPapeisInclude)).default([]),
       exclude: z.optional(z.array(zPapeisInclude)).default([]),
       count_only: z.optional(z.boolean()).default(false),
       distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
       sort_field: z.optional(zPapeisInclude),
     })
   ),
@@ -1725,79 +931,6 @@ export const zNovaSenhaData = z.object({
   }),
 })
 
-export const zLerPlanosData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      nome: z.optional(z.union([z.string(), z.null()])),
-      descricao: z.optional(z.union([z.string(), z.null()])),
-      preco: z.optional(z.union([z.string(), z.null()])),
-      ativo: z.optional(z.union([z.string(), z.null()])),
-      max_usuarios: z.optional(z.union([z.string(), z.null()])),
-      max_analises: z.optional(z.union([z.string(), z.null()])),
-      recursos: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zPlanosInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zPlanosInclude)).default([]),
-      exclude: z.optional(z.array(zPlanosInclude)).default([]),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zPlanosInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerPlanosResponse = zApiSuccessGetPlanos
-
-export const zCriarPlanosData = z.object({
-  body: zPostPlanos,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarPlanosResponse = zApiSuccessNoneType
-
-export const zRemoverPlanosData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverPlanosResponse = zApiSuccessNoneType
-
-export const zAtualizarPlanosData = z.object({
-  body: zPatchPlanos,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarPlanosResponse = zApiSuccessNoneType
-
 export const zLerPapeisFuncionalidadesData = z.object({
   body: z.optional(z.never()),
   path: z.optional(z.never()),
@@ -1812,8 +945,10 @@ export const zLerPapeisFuncionalidadesData = z.object({
       limit: z.optional(z.union([z.int(), z.null()])),
       offset: z.optional(z.union([z.int(), z.null()])),
       cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zPapeisFuncionalidadesInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
+      cursor_field: z.optional(zPapeisFuncionalidadesInclude).default('id'),
+      cursor_direction: z
+        .optional(zAppSchemaPapeisFuncionalidadesSchemaCursorDirection)
+        .default('next'),
       include: z.optional(z.array(zPapeisFuncionalidadesInclude)).default([]),
       exclude: z.optional(z.array(zPapeisFuncionalidadesInclude)).default([]),
       expand: z.optional(
@@ -1821,7 +956,7 @@ export const zLerPapeisFuncionalidadesData = z.object({
       ),
       count_only: z.optional(z.boolean()).default(false),
       distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
+      sort_op: z.optional(zAppSchemaPapeisFuncionalidadesSchemaSortOp),
       sort_field: z.optional(zPapeisFuncionalidadesInclude),
     })
   ),
@@ -1869,343 +1004,3 @@ export const zAtualizarPapeisFuncionalidadesData = z.object({
  * Successful Response
  */
 export const zAtualizarPapeisFuncionalidadesResponse = zApiSuccessNoneType
-
-export const zLerEquipesData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      nome: z.optional(z.union([z.string(), z.null()])),
-      descricao: z.optional(z.union([z.string(), z.null()])),
-      usuario_id: z.optional(z.union([z.string(), z.null()])),
-      status: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zEquipesInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zEquipesInclude)).default([]),
-      exclude: z.optional(z.array(zEquipesInclude)).default([]),
-      expand: z.optional(z.union([z.array(zEquipesExpand), z.null()])),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zEquipesInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerEquipesResponse = zApiSuccessGetEquipes
-
-export const zCriarEquipesData = z.object({
-  body: zPostEquipes,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarEquipesResponse = zApiSuccessNoneType
-
-export const zRemoverEquipesData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverEquipesResponse = zApiSuccessNoneType
-
-export const zAtualizarEquipesData = z.object({
-  body: zPatchEquipes,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarEquipesResponse = zApiSuccessNoneType
-
-export const zLerEquipeUsuariosData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      usuario_id: z.optional(z.union([z.string(), z.null()])),
-      equipe_id: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zEquipeUsuariosInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zEquipeUsuariosInclude)).default([]),
-      exclude: z.optional(z.array(zEquipeUsuariosInclude)).default([]),
-      expand: z.optional(z.union([z.array(zEquipeUsuariosExpand), z.null()])),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zEquipeUsuariosInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerEquipeUsuariosResponse = zApiSuccessGetEquipeUsuarios
-
-export const zCriarEquipeUsuariosData = z.object({
-  body: zPostEquipeUsuarios,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarEquipeUsuariosResponse = zApiSuccessNoneType
-
-export const zRemoverEquipeUsuariosData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverEquipeUsuariosResponse = zApiSuccessNoneType
-
-export const zAtualizarEquipeUsuariosData = z.object({
-  body: zPatchEquipeUsuarios,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarEquipeUsuariosResponse = zApiSuccessNoneType
-
-export const zLerTemplatesData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      usuarios_id: z.optional(z.union([z.string(), z.null()])),
-      equipe_id: z.optional(z.union([z.string(), z.null()])),
-      nome: z.optional(z.union([z.string(), z.null()])),
-      descricao: z.optional(z.union([z.string(), z.null()])),
-      conteudo: z.optional(z.union([z.string(), z.null()])),
-      tags: z.optional(z.union([z.string(), z.null()])),
-      tipo: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zTemplatesInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zTemplatesInclude)).default([]),
-      exclude: z.optional(z.array(zTemplatesInclude)).default([]),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zTemplatesInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerTemplatesResponse = zApiSuccessGetTemplates
-
-export const zCriarTemplatesData = z.object({
-  body: zPostTemplates,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarTemplatesResponse = zApiSuccessNoneType
-
-export const zRemoverTemplatesData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverTemplatesResponse = zApiSuccessNoneType
-
-export const zAtualizarTemplatesData = z.object({
-  body: zPatchTemplates,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarTemplatesResponse = zApiSuccessNoneType
-
-export const zLerEmpresasData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      nome: z.optional(z.union([z.string(), z.null()])),
-      nome_fantasia: z.optional(z.union([z.string(), z.null()])),
-      cnpj: z.optional(z.union([z.string(), z.null()])),
-      segmento: z.optional(z.union([z.string(), z.null()])),
-      email: z.optional(z.union([z.string(), z.null()])),
-      telefone: z.optional(z.union([z.string(), z.null()])),
-      celular: z.optional(z.union([z.string(), z.null()])),
-      cep: z.optional(z.union([z.string(), z.null()])),
-      endereco: z.optional(z.union([z.string(), z.null()])),
-      numero: z.optional(z.union([z.string(), z.null()])),
-      complemento: z.optional(z.union([z.string(), z.null()])),
-      bairro: z.optional(z.union([z.string(), z.null()])),
-      cidade: z.optional(z.union([z.string(), z.null()])),
-      estado: z.optional(z.union([z.string(), z.null()])),
-      ativo: z.optional(z.union([z.string(), z.null()])),
-      data_ativacao: z.optional(z.union([z.string(), z.null()])),
-      data_desativacao: z.optional(z.union([z.string(), z.null()])),
-      dominio: z.optional(z.union([z.string(), z.null()])),
-      subdominio: z.optional(z.union([z.string(), z.null()])),
-      plano_id: z.optional(z.union([z.string(), z.null()])),
-      plano_nome: z.optional(z.union([z.string(), z.null()])),
-      valor_contrato: z.optional(z.union([z.string(), z.null()])),
-      ciclo_cobranca: z.optional(z.union([z.string(), z.null()])),
-      max_usuarios: z.optional(z.union([z.string(), z.null()])),
-      max_analises: z.optional(z.union([z.string(), z.null()])),
-      configuracao: z.optional(z.union([z.string(), z.null()])),
-      id: z.optional(z.union([z.string(), z.null()])),
-      criado_em: z.optional(z.union([z.string(), z.null()])),
-      atualizado_em: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-      cursor: z.optional(z.union([z.string(), z.null()])),
-      cursor_field: z.optional(zEmpresasInclude),
-      cursor_direction: z.optional(zAppSchemaEmpresasSchemaCursorDirection),
-      include: z.optional(z.array(zEmpresasInclude)).default([]),
-      exclude: z.optional(z.array(zEmpresasInclude)).default([]),
-      expand: z.optional(z.union([z.array(zEmpresasExpand), z.null()])),
-      count_only: z.optional(z.boolean()).default(false),
-      distinct: z.optional(z.boolean()).default(false),
-      sort_op: z.optional(zAppSchemaEmpresasSchemaSortOp),
-      sort_field: z.optional(zEmpresasInclude),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerEmpresasResponse = zApiSuccessGetEmpresas
-
-export const zCriarEmpresasData = z.object({
-  body: zPostEmpresas,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zCriarEmpresasResponse = zApiSuccessNoneType
-
-export const zLerEmpresasTenantData = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      all_data: z.optional(z.boolean()).default(true),
-      id: z.optional(z.union([z.string(), z.null()])),
-      nome: z.optional(z.union([z.string(), z.null()])),
-      dominio: z.optional(z.union([z.string(), z.null()])),
-      subdominio: z.optional(z.union([z.string(), z.null()])),
-      configuracao: z.optional(z.union([z.string(), z.null()])),
-      limit: z.optional(z.union([z.int(), z.null()])),
-      offset: z.optional(z.union([z.int(), z.null()])),
-    })
-  ),
-})
-
-/**
- * Successful Response
- */
-export const zLerEmpresasTenantResponse = zApiSuccessGetTenantEmpresas
-
-export const zRemoverEmpresasData = z.object({
-  body: z.optional(z.never()),
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zRemoverEmpresasResponse = zApiSuccessNoneType
-
-export const zAtualizarEmpresasData = z.object({
-  body: zPatchEmpresas,
-  path: z.object({
-    id: z.uuid(),
-  }),
-  query: z.optional(z.never()),
-})
-
-/**
- * Successful Response
- */
-export const zAtualizarEmpresasResponse = zApiSuccessNoneType
-
-export const zUpdateTranscriptionWebhookTranscriptionPatchData = z.object({
-  body: zTranscriptionCallback,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})
-
-export const zUpdateRelatorioWebhookRelatorioPatchData = z.object({
-  body: zRelatorioCallback,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
-})

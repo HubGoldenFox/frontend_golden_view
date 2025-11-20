@@ -56,7 +56,7 @@ export default function Maintenance({
 
         <div className="mt-12 text-gray-500">
           <p>
-            {new Date().getFullYear()} GestorIA 360. Todos os direitos
+            {new Date().getFullYear()} Golden View 360. Todos os direitos
             reservados.
           </p>
         </div>

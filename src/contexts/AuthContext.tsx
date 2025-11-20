@@ -1,9 +1,9 @@
 'use client'
 
-import { AppSchemaUsuariosSchemaGetUsuariosOutput as Usuario } from '@/client/types.gen'
+import { GetUsuarios as Usuario } from '@/client/types.gen'
 import { configureAPI } from '@/config/axiosConfig'
 // import { useRouter } from 'next/navigation'
-import { apiLogin } from '@/services/authService'
+import { apiLogin, LoginResponse } from '@/services/authService'
 import {
   createContext,
   ReactNode,
@@ -28,7 +28,7 @@ interface AuthContextProps {
     email: string,
     senha: string,
     tenantId?: string | null
-  ) => Promise<string | undefined>
+  ) => Promise<LoginResponse | undefined>
   clear: () => void
 }
 
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         tenantId: null,
       })
 
-      return response.papel
+      return response
     } catch (error) {
       throw error
     } finally {

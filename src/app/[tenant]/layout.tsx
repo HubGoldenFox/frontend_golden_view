@@ -1,23 +1,17 @@
 // app/[tenant]/layout.tsx
 import { TenantProvider } from '@/contexts/TenantContext'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 
 interface TenantLayoutProps {
   children: React.ReactNode
   params: Promise<{ tenant: string }>
 }
 
-async function fetchTenantDataServer(
-  slug: string,
-  type: 'subdomain' | 'custom-domain' | 'slug'
-) {
+async function fetchTenantDataServer(slug: string) {
   // Define o parâmetro correto baseado no tipo
-  const paramName = type === 'custom-domain' ? 'dominio' : 'subdominio'
-
   try {
     const response = await fetch(
-      `${process.env.API_URL}/empresas/tenant?${paramName}=${slug}`,
+      `${process.env.API_URL}/tenants?slug=${slug}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.API_TOKEN}`,
@@ -37,13 +31,8 @@ async function fetchTenantDataServer(
 export async function generateMetadata({
   params,
 }: TenantLayoutProps): Promise<Metadata> {
-  const headersList = await headers()
-  const tenantType = headersList.get('x-tenant-type') as
-    | 'subdomain'
-    | 'custom-domain'
-    | 'slug'
   const tenant = (await params).tenant
-  const tenantData = await fetchTenantDataServer(tenant, tenantType)
+  const tenantData = await fetchTenantDataServer(tenant)
 
   return {
     title: tenantData?.configuracao?.title,
@@ -58,13 +47,8 @@ export default async function TenantLayout({
   children,
   params,
 }: TenantLayoutProps) {
-  const headersList = await headers()
-  const tenantType = headersList.get('x-tenant-type') as
-    | 'subdomain'
-    | 'custom-domain'
-    | 'slug'
   const { tenant } = await params
-  const tenantData = await fetchTenantDataServer(tenant, tenantType)
+  const tenantData = await fetchTenantDataServer(tenant)
 
   return (
     <TenantProvider tenantSlug={tenant} initialData={tenantData}>

@@ -97,7 +97,7 @@ export function ComingSoon({
 
         <div className="mt-12 text-muted-foreground">
           <p>
-            {new Date().getFullYear()} GestorIA 360. Todos os direitos
+            {new Date().getFullYear()} Golden View 360. Todos os direitos
             reservados.
           </p>
         </div>

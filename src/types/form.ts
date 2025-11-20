@@ -1,3 +1,5 @@
+'use client'
+
 // types/form.ts
 export type FieldType =
   | 'text'
@@ -71,7 +73,7 @@ export interface FormField {
 export interface DynamicFormProps {
   title?: string
   fields: FormField[]
-  onSubmit: (data: Record<string, any>) => Promise
+  onSubmit: (data: Record<string, any>) => Promise<void>
   loading?: boolean
   submitText?: string
   gridCols?: 1 | 2 | 3 | 4

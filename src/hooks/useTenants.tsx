@@ -1,15 +1,14 @@
 import {
-  removerEmpresas as deleteRequest,
-  lerEmpresas as getRequest,
-  lerEmpresasTenant as GetTenant,
-  atualizarEmpresas as patchRequest,
-  criarEmpresas as postRequest,
+  removerTenants as deleteRequest,
+  lerTenants as getRequest,
+  atualizarTenants as patchRequest,
+  criarTenants as postRequest,
 } from '@/client/sdk.gen'
 import type {
-  PatchEmpresas as PatchType,
-  PostEmpresas as PostType,
-  LerEmpresasData as QueryParams,
-  LerEmpresasResponse as ResponseType,
+  PatchTenants as PatchType,
+  PostTenants as PostType,
+  LerTenantsData as QueryParams,
+  LerTenantsResponse as ResponseType,
 } from '@/client/types.gen'
 import { useCallback, useState } from 'react'
 
@@ -31,51 +30,6 @@ export const useHook = () => {
         data: response.data ?? null,
         isLoading: false,
       }))
-
-      return response.data
-    } catch (err) {
-      setState((prev) => ({
-        ...prev,
-        error: err as Error,
-        isLoading: false,
-      }))
-      throw err
-    }
-  }, [])
-
-  const fetchItem = useCallback(async (query?: QueryParams['query']) => {
-    try {
-      setState((prev) => ({ ...prev, isLoading: true, error: null }))
-
-      const response = await getRequest({ query })
-
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-      }))
-
-      return response.data
-    } catch (err) {
-      setState((prev) => ({
-        ...prev,
-        error: err as Error,
-        isLoading: false,
-      }))
-      throw err
-    }
-  }, [])
-
-  const fetchTenant = useCallback(async (query?: QueryParams['query']) => {
-    try {
-      setState((prev) => ({ ...prev, isLoading: true, error: null }))
-      const response = await GetTenant({ query })
-
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-      }))
-
-      return response.data
     } catch (err) {
       setState((prev) => ({
         ...prev,
@@ -119,8 +73,6 @@ export const useHook = () => {
   return {
     ...state,
     fetchData,
-    fetchItem,
-    fetchTenant,
     create,
     update,
     remove,

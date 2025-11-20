@@ -1,593 +1,149 @@
 'use client'
 
-import { useToast } from '@/contexts/ToastContext'
-import { Edit, Eye, Mail, Phone, Plus, Trash2 } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
+import { Card } from '@/components/custom/Card'
+import { useData } from '@/contexts/DataContext'
+import { useAuthTenant } from '@/hooks/useAuthTenant'
+import { formatDate } from '@/lib/utils'
+import { Building2, Files, Plus, Users } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
-import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'
+export default function Companies() {
+  const { companies, addCompany, users, reports } = useData()
+  const [isCreating, setIsCreating] = useState(false)
+  const [newName, setNewName] = useState('')
+  const [newCnpj, setNewCnpj] = useState('')
 
-import {
-  ActionButton,
-  ColumnConfig,
-  DataTable,
-  TableAction,
-  TableFetchParams,
-} from '@/components/custom/Table'
+  const navigate = useRouter()
+  const { tenant } = useAuthTenant()
 
-import { DynamicForm } from '@/components/custom/Form'
-import { Modal } from '@/components/custom/Modal'
-
-import { useHook as useEmpresas } from '@/hooks/useEmpresas'
-
-import {
-  GetEmpresas as GetItems,
-  PatchEmpresas as PatchItems,
-  PostEmpresas as PostItems,
-  LerEmpresasData as QueryParams,
-} from '@/client/types.gen'
-import { FormField } from '@/types/form'
-import { msgError } from '@/utils/functions'
-import { masks } from '@/utils/masks'
-import { getChangedPropertiesSimple } from '@/utils/objectDiff'
-
-type typeForm = 'create' | 'update' | 'view'
-
-export default function EmpresasPage() {
-  const [isFormOpen, setIsFormOpen] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<GetItems | null>(null)
-
-  const [selectedFormMode, setSelectedFormMode] = useState<typeForm>('create')
-
-  const { data, fetchData, create, update, remove } = useEmpresas()
-
-  const { toast } = useToast()
-
-  const handleNewItem = () => {
-    setSelectedItem(null)
-    setSelectedFormMode('create')
-    setIsFormOpen(true)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    addCompany({ name: newName, cnpj: newCnpj, status: 'active' })
+    setIsCreating(false)
+    setNewName('')
+    setNewCnpj('')
   }
-
-  const handleView = (item: GetItems) => {
-    setSelectedFormMode('view')
-    setSelectedItem(item)
-    setIsFormOpen(true)
-  }
-
-  const handleEdit = (item: GetItems) => {
-    setSelectedFormMode('update')
-    setSelectedItem(item)
-    setIsFormOpen(true)
-  }
-
-  const handleDelete = (item: GetItems) => {
-    setSelectedItem(item)
-    setIsDeleteDialogOpen(true)
-  }
-
-  const handleDeleteConfirm = async () => {
-    if (selectedItem?.id) {
-      await remove(selectedItem.id)
-      fetchData({
-        limit: data?.meta?.items_per_page || 10,
-        offset: 0,
-        sort_op: 'DESC',
-        sort_field: 'criado_em',
-      })
-    }
-    setIsDeleteDialogOpen(false)
-  }
-
-  const handleCancelForm = () => {
-    setSelectedItem(null)
-    setIsFormOpen(false)
-  }
-
-  const handleSubmitForm = async (item: PostItems | PatchItems) => {
-    setSubmitting(true)
-
-    try {
-      if (selectedFormMode === 'create') {
-        await create(item as PostItems)
-        toast.success('Item criado com sucesso!')
-      } else {
-        const changes = getChangedPropertiesSimple(
-          selectedItem as GetItems,
-          item as Partial<GetItems>
-        )
-        if (Object.keys(changes).length === 0) {
-          toast.info('Nenhuma alteração detectada.')
-          setIsFormOpen(false)
-          return
-        }
-
-        if (selectedItem?.id) {
-          await update(selectedItem.id, item)
-          toast.success('Item atualizado com sucesso!')
-        }
-      }
-
-      setIsFormOpen(false)
-      fetchData({
-        limit: data?.meta?.items_per_page || 10,
-        offset: 0,
-        sort_op: 'DESC',
-        sort_field: 'criado_em',
-      })
-    } catch (err) {
-      console.log(err)
-      const { message } = msgError(err)
-      toast.error(message)
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
-  const adaptTableParamsToQuery = (
-    params: TableFetchParams
-  ): QueryParams['query'] => {
-    return {
-      limit: params.itemsPerPage,
-      offset: (params.page - 1) * params.itemsPerPage,
-      nome_fantasia: params.searchTerm || undefined,
-      sort_field: (params.sortField as any) || 'criado_em',
-      sort_op: params.sortDirection === 'asc' ? 'ASC' : 'DESC',
-    }
-  }
-
-  const fetchDataAdapted = useCallback(
-    async (tableParams: TableFetchParams) => {
-      const query = adaptTableParamsToQuery(tableParams)
-      return fetchData(query)
-    },
-    [fetchData]
-  )
-
-  const handleDeleteMultiple = async (items: GetItems[]) => {
-    try {
-      const deletePromises = items.map((item) => remove(item.id || ''))
-
-      await Promise.all(deletePromises)
-
-      await fetchData({
-        limit: data?.meta?.items_per_page || 10,
-        offset: 0,
-        sort_op: 'DESC',
-        sort_field: 'criado_em',
-      })
-
-      toast.success(`${items.length} itens excluídos com sucesso!`)
-    } catch (error) {
-      // console.error(error)
-    }
-  }
-
-  const FormFields: FormField[] = [
-    {
-      name: 'nome',
-      label: 'Nome da Empresa',
-      type: 'text',
-      required: true,
-      placeholder: 'Ex: Gestor AI',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'nome_fantasia',
-      label: 'Nome Fantasia',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: Gestor AI',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 100,
-      },
-    },
-    {
-      name: 'usuario_admin',
-      label: 'Login',
-      type: 'text',
-      required: true,
-      placeholder: 'Ex: joao.silva',
-      colSpan: 1,
-      validation: {
-        minLength: 3,
-        maxLength: 20,
-      },
-    },
-    {
-      name: 'senha_admin',
-      label: 'Senha',
-      type: 'password',
-      required: true,
-      placeholder: 'Digite sua senha',
-      validation: {
-        rules: [
-          {
-            type: 'required',
-            message: 'Senha é obrigatória',
-          },
-          {
-            type: 'minLength',
-            value: 8,
-            message: 'Senha deve ter pelo menos 8 caracteres',
-          },
-          {
-            type: 'pattern',
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-            message:
-              'Senha deve conter letras maiúsculas, minúsculas e números',
-          },
-        ],
-      },
-      colSpan: 1,
-    },
-    {
-      name: 'dominio',
-      label: 'Domínio',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: GestorAI.com',
-      colSpan: 2,
-      validation: {
-        rules: [
-          {
-            type: 'pattern',
-            value:
-              /^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.[a-zA-Z0-9-]{1,63}(?<!-))+$/,
-            message:
-              'Domínio deve conter apenas letras, números e hífens (não pode começar/terminar com hífen)',
-          },
-        ],
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'subdominio',
-      label: 'Subdomínio',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: GestorAI',
-      colSpan: 2,
-      validation: {
-        rules: [
-          {
-            type: 'pattern',
-            value: /^(?!-)[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]$|^$/,
-            message:
-              'Subdomínio deve ter até 63 caracteres, apenas letras, números e hífens (não no início/fim)',
-          },
-        ],
-        minLength: 1,
-        maxLength: 63,
-      },
-    },
-    {
-      name: 'cnpj',
-      label: 'CNPJ',
-      type: 'cnpj',
-      required: false,
-      placeholder: 'Ex: 12.345.678/0001-95',
-      colSpan: 1,
-    },
-    {
-      name: 'segmento',
-      label: 'Segmento',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: Vendas',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 100,
-      },
-    },
-    {
-      name: 'email',
-      label: 'E-mail',
-      type: 'email',
-      required: true,
-      placeholder: 'Ex: email@empresa.com',
-      colSpan: 1,
-      validation: {
-        pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      },
-    },
-    {
-      name: 'telefone',
-      label: 'Telefone',
-      type: 'phone',
-      required: false,
-      placeholder: 'Ex: (65) 3765-4321',
-      colSpan: 1,
-    },
-    {
-      name: 'celular',
-      label: 'Celular',
-      type: 'phone',
-      required: false,
-      placeholder: 'Ex: (65) 98765-4321',
-      colSpan: 1,
-    },
-    {
-      name: 'cep',
-      label: 'Cep',
-      type: 'cep',
-      required: false,
-      placeholder: 'Ex: 12345-678',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'endereco',
-      label: 'Rua',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: Rua Padre Casemiro',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'numero',
-      label: 'Nº',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: 767',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'complemento',
-      label: 'Complemento',
-      type: 'text',
-      required: false,
-      placeholder: '',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'bairro',
-      label: 'Bairro',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: Centro',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'cidade',
-      label: 'Cidade',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: Cáceres',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'estado',
-      label: 'Estado',
-      type: 'text',
-      required: false,
-      placeholder: 'Ex: MT',
-      colSpan: 1,
-      validation: {
-        minLength: 1,
-        maxLength: 200,
-      },
-    },
-    {
-      name: 'ativo',
-      label: 'Status',
-      type: 'checkbox',
-      required: false,
-      defaultValue: true,
-      colSpan: 1,
-    },
-  ]
-
-  const actions: TableAction<GetItems>[] = [
-    {
-      label: 'Detalhes',
-      icon: <Eye className="h-4 w-4" />,
-      variant: 'view',
-      onClick: handleView,
-    },
-    {
-      label: 'Editar',
-      icon: <Edit className="h-4 w-4" />,
-      variant: 'edit',
-      onClick: handleEdit,
-    },
-    {
-      label: 'Excluir',
-      icon: <Trash2 className="h-4 w-4" />,
-      variant: 'delete',
-      onClick: handleDelete,
-    },
-  ]
-
-  const columns: ColumnConfig<GetItems>[] = [
-    {
-      header: 'Nome da Empresa',
-      accessor: 'nome',
-      sortable: true,
-      visible: true,
-    },
-    {
-      header: 'Nome Fantasia',
-      accessor: 'nome_fantasia',
-      sortable: true,
-      visible: true,
-    },
-    {
-      header: 'Contato',
-      accessor: 'email',
-      sortable: true,
-      cell: ({ row }) => (
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-sm">
-            <Mail className="h-4 w-4 text-blue-500" />
-            <span>{row.email}</span>
-          </div>
-          {row.telefone && (
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Phone className="h-3 w-3" />
-              {masks.phone(row.telefone)}
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
-      header: 'CNPJ',
-      accessor: 'cnpj',
-      sortable: true,
-      visible: false,
-    },
-    {
-      header: 'Status',
-      accessor: 'ativo',
-      sortable: true,
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <div
-            className={`h-2 w-2 rounded-full ${row.ativo ? 'bg-green-500' : 'bg-red-500'}`}
-          />
-          <span className="text-sm">{row.ativo ? 'Ativo' : 'Inativo'}</span>
-        </div>
-      ),
-    },
-    {
-      header: 'Criação',
-      accessor: 'criado_em',
-      sortable: true,
-      visible: false,
-      cell: ({ row }) => (
-        <div className="text-xs text-muted-foreground">
-          {new Date(row.criado_em || '').toLocaleDateString('pt-BR')}
-        </div>
-      ),
-    },
-    {
-      header: 'Atualização',
-      accessor: 'atualizado_em',
-      sortable: true,
-      visible: false,
-      cell: ({ row }) =>
-        row.atualizado_em ? (
-          <div className="text-xs text-muted-foreground">
-            {new Date(row.atualizado_em || '').toLocaleDateString('pt-BR')}
-          </div>
-        ) : (
-          <span className="text-xs text-muted-foreground">Nunca</span>
-        ),
-    },
-  ]
-
-  const tableButtons: ActionButton[] = [
-    {
-      label: 'Novo',
-      onClick: handleNewItem,
-      icon: <Plus className="h-4 w-4 mr-2" />,
-    },
-  ]
-
-  useEffect(() => {
-    fetchData({
-      limit: 10,
-      offset: 0,
-      sort_op: 'DESC',
-      sort_field: 'criado_em',
-    })
-  }, [])
 
   return (
-    <div className="mx-auto py-6 space-y-6">
-      {/* Tabela */}
-      <DataTable
-        data={data?.data || []}
-        meta={data?.meta || {}}
-        actions={actions}
-        columns={columns}
-        onFetchData={fetchDataAdapted}
-        isLoading={false}
-        initialItemsPerPage={data?.meta?.items_per_page || 10}
-        className="shadow-lg border border-border bg-card"
-        buttons={tableButtons}
-        onDeleteSelected={handleDeleteMultiple}
-        title="Lista de Empresas"
-      />
-
-      {/* Modal do Formulário */}
-      <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)}>
-        <div className="bg-card text-card-foreground rounded-lg">
-          {selectedFormMode === 'create' ? (
-            <DynamicForm
-              title="Criar Empresa"
-              fields={FormFields}
-              onSubmit={handleSubmitForm}
-              onCancel={handleCancelForm}
-              loading={submitting}
-              mode="create"
-            />
-          ) : selectedFormMode === 'update' ? (
-            <DynamicForm
-              title="Editar Empresa"
-              fields={FormFields}
-              initialData={selectedItem || undefined}
-              onSubmit={handleSubmitForm}
-              onCancel={handleCancelForm}
-              loading={submitting}
-              mode="edit"
-            />
-          ) : (
-            <DynamicForm
-              title="Detalhes da Empresa"
-              fields={FormFields}
-              initialData={selectedItem || undefined}
-              onSubmit={handleSubmitForm}
-              onCancel={handleCancelForm}
-              mode="view"
-            />
-          )}
+    <div className="space-y-6 animate-fade-in py-4 md:p-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Empresas</h1>
+          <p className="text-muted-foreground">
+            Gerencie clientes e acesse detalhes para vincular relatórios.
+          </p>
         </div>
-      </Modal>
+        <button
+          onClick={() => setIsCreating(true)}
+          className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium shadow-sm transition-all"
+        >
+          <Plus className="w-4 h-4" />
+          Nova Empresa
+        </button>
+      </div>
 
-      {/* Modal de Exclusão */}
-      <ConfirmationDialog
-        open={isDeleteDialogOpen}
-        onOpenChange={setIsDeleteDialogOpen}
-        title="Excluir item"
-        description="Tem certeza que deseja excluir este item? Esta ação não pode ser desfeita."
-        onConfirm={handleDeleteConfirm}
-        variant="destructive"
-        confirmText="Excluir"
-      />
+      {isCreating && (
+        <Card className="p-4 bg-muted/30 border-primary/30 animate-slide-up">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col md:flex-row gap-4 items-end"
+          >
+            <div className="flex-1 w-full">
+              <label className="text-xs font-semibold text-muted-foreground uppercase">
+                Nome da Empresa
+              </label>
+              <input
+                required
+                className="w-full mt-1 px-3 py-2 border border-input rounded-md bg-background focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                placeholder="Ex: Tech Solutions"
+              />
+            </div>
+            <div className="flex-1 w-full">
+              <label className="text-xs font-semibold text-muted-foreground uppercase">
+                CNPJ
+              </label>
+              <input
+                className="w-full mt-1 px-3 py-2 border border-input rounded-md bg-background focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                value={newCnpj}
+                onChange={(e) => setNewCnpj(e.target.value)}
+                placeholder="00.000.000/0000-00"
+              />
+            </div>
+            <div className="flex gap-2 w-full md:w-auto">
+              <button
+                type="button"
+                onClick={() => setIsCreating(false)}
+                className="px-4 py-2 bg-background border border-input rounded-md text-foreground hover:bg-secondary transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Salvar
+              </button>
+            </div>
+          </form>
+        </Card>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {companies.map((company) => {
+          const companyUsers = users.filter(
+            (u) => u.companyId === company.id
+          ).length
+          const companyReports = reports.filter((r) =>
+            r.companyIds.includes(company.id)
+          ).length
+
+          return (
+            <Card
+              key={company.id}
+              onClick={() =>
+                navigate.push(`/${tenant?.slug}/admin/empresas/${company.id}`)
+              }
+              className="hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group relative bg-card"
+            >
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-3 bg-secondary rounded-xl group-hover:bg-primary/10 group-hover:text-primary transition-colors text-muted-foreground">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <span className="px-2 py-1 text-xs font-medium bg-success/10 text-success rounded-full border border-success/20">
+                    {company.status}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-foreground tracking-tight">
+                  {company.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {company.cnpj || 'CNPJ não informado'}
+                </p>
+
+                <div className="mt-4 flex gap-4">
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                    <Users className="w-4 h-4" />
+                    <span>{companyUsers} usuários</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                    <Files className="w-4 h-4" />
+                    <span>{companyReports} relatórios</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-border flex justify-between text-sm text-muted-foreground">
+                  <span>Criado em</span>
+                  <span>{formatDate(company.createdAt)}</span>
+                </div>
+              </div>
+            </Card>
+          )
+        })}
+      </div>
     </div>
   )
 }

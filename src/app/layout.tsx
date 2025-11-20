@@ -1,4 +1,5 @@
 import { AuthProvider, ToastProvider } from '@/contexts'
+import { DataProvider } from '@/contexts/DataContext'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter } from 'next/font/google'
 import './globals.css'
@@ -49,7 +50,9 @@ export default function RootLayout({
         `}
       >
         <AuthProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <DataProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </DataProvider>
         </AuthProvider>
       </body>
     </html>

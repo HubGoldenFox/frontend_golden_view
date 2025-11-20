@@ -44,8 +44,8 @@ export const useAuthTenant = () => {
     configureAPI({ token: null, tenantId: null })
 
     // 🔹 Redireciona para o login correto baseado no tenant atual
-    if (tenant?.subdominio) {
-      router.push(`/${tenant.subdominio}/login`)
+    if (tenant?.slug) {
+      router.push(`/${tenant.slug}/login`)
     } else if (tenant?.dominio) {
       router.push(`/${tenant.dominio}/login`)
     } else {

@@ -28,11 +28,14 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* Resto do seu tema permanece igual... */
-  /* === CORES TEMA CLARO (padrão) === */
+  /* === CORES TEMA CLARO (padrão) - ADICIONADO SUPORTE A HSL SEPARADO === */
   /* Fundo e texto principal */
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(222.2 84% 4.9%);
+
+  /* Variáveis HSL separadas para suporte a opacidade */
+  --color-background-hsl: 0 0% 100%;
+  --color-foreground-hsl: 222.2 84% 4.9%;
 
   /* Azul primário */
   --color-primary-50: hsl(219 100% 97%);
@@ -48,8 +51,16 @@
   --color-primary: hsl(221 83% 53%);
   --color-primary-foreground: hsl(210 40% 98%);
 
+  /* Variáveis HSL separadas para primário */
+  --color-primary-hsl: 221 83% 53%;
+  --color-primary-foreground-hsl: 210 40% 98%;
+
   --color-gradient-from: hsl(219 100% 97%);
   --color-gradient-to: hsl(0 0% 100%);
+
+  /* Variáveis HSL separadas para gradiente */
+  --color-gradient-from-hsl: 219 100% 97%;
+  --color-gradient-to-hsl: 0 0% 100%;
 
   /* Cinza secundário */
   --color-secondary-50: hsl(210 40% 98%);
@@ -65,6 +76,10 @@
   --color-secondary: hsl(210 40% 96%);
   --color-secondary-foreground: hsl(222.2 84% 4.9%);
 
+  /* Variáveis HSL separadas para secundário */
+  --color-secondary-hsl: 210 40% 96%;
+  --color-secondary-foreground-hsl: 222.2 84% 4.9%;
+
   /* Cores de estado */
   --color-success: hsl(142 76% 36%);
   --color-success-foreground: hsl(0 0% 100%);
@@ -76,6 +91,16 @@
   --color-error-foreground: hsl(0 0% 98%);
   --color-info: hsl(199 89% 48%);
   --color-info-foreground: hsl(0 0% 98%);
+
+  /* Variáveis HSL separadas para estados */
+  --color-success-hsl: 142 76% 36%;
+  --color-success-foreground-hsl: 0 0% 100%;
+  --color-warning-hsl: 38 92% 50%;
+  --color-warning-foreground-hsl: 20 100% 20%;
+  --color-destructive-hsl: 0 84% 60%;
+  --color-destructive-foreground-hsl: 0 0% 98%;
+  --color-info-hsl: 199 89% 48%;
+  --color-info-foreground-hsl: 0 0% 98%;
 
   /* Neutros e complementares */
   --color-muted: hsl(210 40% 96%);
@@ -89,6 +114,19 @@
   --color-card-foreground: hsl(222.2 84% 4.9%);
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(222.2 84% 4.9%);
+
+  /* Variáveis HSL separadas para componentes */
+  --color-muted-hsl: 210 40% 96%;
+  --color-muted-foreground-hsl: 215.4 16.3% 46.9%;
+  --color-accent-hsl: 210 40% 96%;
+  --color-accent-foreground-hsl: 222.2 84% 4.9%;
+  --color-border-hsl: 214.3 31.8% 91.4%;
+  --color-input-hsl: 214.3 31.8% 91.4%;
+  --color-ring-hsl: 221.2 83.2% 53.3%;
+  --color-card-hsl: 0 0% 100%;
+  --color-card-foreground-hsl: 222.2 84% 4.9%;
+  --color-popover-hsl: 0 0% 100%;
+  --color-popover-foreground-hsl: 222.2 84% 4.9%;
 
   /* === EASING (transições) === */
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
@@ -123,33 +161,34 @@
     font-family: var(--font-family, 'Inter'), sans-serif;
   }
 
-  /* Scrollbar personalizada */
+  /* Scrollbar personalizada - ATUALIZADA COM HSL VARIABLES */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-secondary;
+    background: hsl(var(--color-secondary-hsl));
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground;
+    background: hsl(var(--color-muted-foreground-hsl) / 0.5);
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary;
+    background: hsl(var(--color-primary-hsl));
   }
 }
 
 /**
- * Utilitários customizados
+ * Utilitários customizados - ATUALIZADOS COM HSL VARIABLES
  */
 @layer utilities {
   .bg-gradient-primary {
     background: linear-gradient(
       to bottom,
-      var(--color-gradient-from) 0%,
-      var(--color-gradient-to) 100%
+      hsl(var(--color-gradient-from-hsl)),
+      hsl(var(--color-gradient-to-hsl))
     );
   }
 
@@ -203,7 +242,9 @@
   @keyframes animate-in {
     from {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(
+        -5px
+      ); /* Atualizado para combinar com o segundo CSS */
     }
     to {
       opacity: 1;
@@ -233,12 +274,17 @@
 /**
  * Cores específicas do modo escuro
  * Aplicadas automaticamente quando .dark está presente
+ * ATUALIZADO COM VARIÁVEIS HSL SEPARADAS
  */
 @layer base {
   .dark {
     /* Fundo e texto principal */
     --color-background: hsl(222.2 84% 6%);
     --color-foreground: hsl(210 30% 96%);
+
+    /* Variáveis HSL separadas para dark mode */
+    --color-background-hsl: 222.2 84% 6%;
+    --color-foreground-hsl: 210 30% 96%;
 
     /* Azul primário ajustado */
     --color-primary: hsl(217 91% 65%);
@@ -254,8 +300,16 @@
     --color-primary-800: hsl(221 91% 87%);
     --color-primary-900: hsl(218 100% 94%);
 
+    /* Variáveis HSL separadas para primário dark */
+    --color-primary-hsl: 217 91% 65%;
+    --color-primary-foreground-hsl: 222.2 84% 4.9%;
+
     --color-gradient-from: hsl(219 100% 97%);
     --color-gradient-to: hsl(0 0% 100%);
+
+    /* Variáveis HSL separadas para gradiente dark */
+    --color-gradient-from-hsl: 222 84% 5%;
+    --color-gradient-to-hsl: 222.2 84% 6%;
 
     /* Cinza secundário ajustado para dark */
     --color-secondary: hsl(217.2 32.6% 17.5%);
@@ -271,6 +325,10 @@
     --color-secondary-800: hsl(210 40% 96%);
     --color-secondary-900: hsl(210 40% 98%);
 
+    /* Variáveis HSL separadas para secundário dark */
+    --color-secondary-hsl: 217.2 32.6% 17.5%;
+    --color-secondary-foreground-hsl: 210 40% 98%;
+
     /* Cores de estado ajustadas para dark */
     --color-success: hsl(142 76% 50%);
     --color-success-foreground: hsl(0 0% 100%);
@@ -282,6 +340,16 @@
     --color-error-foreground: hsl(0 0% 100%);
     --color-info: hsl(199 89% 48%);
     --color-info-foreground: hsl(0 0% 98%);
+
+    /* Variáveis HSL separadas para estados dark */
+    --color-success-hsl: 142 76% 50%;
+    --color-success-foreground-hsl: 0 0% 100%;
+    --color-warning-hsl: 38 92% 45%;
+    --color-warning-foreground-hsl: 48 100% 96%;
+    --color-destructive-hsl: 0 100% 60%;
+    --color-destructive-foreground-hsl: 0 0% 100%;
+    --color-info-hsl: 199 89% 48%;
+    --color-info-foreground-hsl: 0 0% 98%;
 
     /* Neutros ajustados para dark */
     --color-muted: hsl(217.2 32.6% 17.5%);
@@ -295,14 +363,27 @@
     --color-card-foreground: hsl(210 40% 98%);
     --color-popover: hsl(222.2 84% 4.9%);
     --color-popover-foreground: hsl(210 40% 98%);
+
+    /* Variáveis HSL separadas para componentes dark */
+    --color-muted-hsl: 217.2 32.6% 17.5%;
+    --color-muted-foreground-hsl: 215 20% 75%;
+    --color-accent-hsl: 217.2 32.6% 17.5%;
+    --color-accent-foreground-hsl: 210 40% 98%;
+    --color-border-hsl: 217.2 32.6% 17.5%;
+    --color-input-hsl: 217.2 32.6% 17.5%;
+    --color-ring-hsl: 217 91% 65%;
+    --color-card-hsl: 222.2 84% 4.9%;
+    --color-card-foreground-hsl: 210 40% 98%;
+    --color-popover-hsl: 222.2 84% 4.9%;
+    --color-popover-foreground-hsl: 210 40% 98%;
   }
 
   /* Gradiente corrigido para modo escuro */
   .dark .bg-gradient-primary {
     background: linear-gradient(
       to bottom,
-      var(--color-gradient-from) 0%,
-      var(--color-gradient-to) 100%
+      hsl(var(--color-gradient-from-hsl)),
+      hsl(var(--color-gradient-to-hsl))
     );
   }
 }

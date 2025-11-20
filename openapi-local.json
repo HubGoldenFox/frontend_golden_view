@@ -1,0 +1,5106 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Golden-View",
+    "description": "Descrição da API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/funcionalidades/": {
+      "get": {
+        "tags": ["Funcionalidades"],
+        "summary": "Ler Funcionalidades",
+        "operationId": "ler_funcionalidades",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "chave",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Chave de acesso autoincrementada",
+              "title": "Chave"
+            },
+            "description": "Chave de acesso autoincrementada"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Nome amigável da funcionalidades (ex: 'Excluir Cliente')",
+              "title": "Nome"
+            },
+            "description": "Nome amigável da funcionalidades (ex: 'Excluir Cliente')"
+          },
+          {
+            "name": "escopo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único no formato 'recurso:ação' (ex: 'client:delete')",
+              "title": "Escopo"
+            },
+            "description": "Identificador único no formato 'recurso:ação' (ex: 'client:delete')"
+          },
+          {
+            "name": "caminho",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Endpoint da API (ex: '/api/client/{id}')",
+              "title": "Caminho"
+            },
+            "description": "Endpoint da API (ex: '/api/client/{id}')"
+          },
+          {
+            "name": "metodo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Método HTTP (GET, POST, PUT, DELETE, etc)",
+              "title": "Metodo"
+            },
+            "description": "Método HTTP (GET, POST, PUT, DELETE, etc)"
+          },
+          {
+            "name": "descricao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Descrição detalhada do propósito da funcionalidades",
+              "title": "Descricao"
+            },
+            "description": "Descrição detalhada do propósito da funcionalidades"
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Grupo funcional (ex: 'CRM', 'Financeiro', 'Relatórios')",
+              "title": "Categoria"
+            },
+            "description": "Grupo funcional (ex: 'CRM', 'Financeiro', 'Relatórios')"
+          },
+          {
+            "name": "sensivel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Indica se é uma operação crítica/cuidado extra necessário",
+              "title": "Sensivel"
+            },
+            "description": "Indica se é uma operação crítica/cuidado extra necessário"
+          },
+          {
+            "name": "versao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Versão da funcionalidades para controle de evolução",
+              "title": "Versao"
+            },
+            "description": "Versão da funcionalidades para controle de evolução"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/FuncionalidadesInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FuncionalidadesInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FuncionalidadesInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/FuncionalidadesInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetFuncionalidades_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Funcionalidades"],
+        "summary": "Criar Funcionalidades",
+        "operationId": "criar_funcionalidades",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funcionalidades/{id}": {
+      "patch": {
+        "tags": ["Funcionalidades"],
+        "summary": "Atualizar Funcionalidades",
+        "operationId": "atualizar_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Funcionalidades"],
+        "summary": "Remover Funcionalidades",
+        "operationId": "remover_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants/": {
+      "get": {
+        "tags": ["Tenants"],
+        "summary": "Ler Tenants",
+        "operationId": "ler_tenants",
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Nome único da tenant/organização",
+              "title": "Nome"
+            },
+            "description": "Nome único da tenant/organização"
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Slug único para identificação na URL (ex: nome-empresa)",
+              "title": "Slug"
+            },
+            "description": "Slug único para identificação na URL (ex: nome-empresa)"
+          },
+          {
+            "name": "schema_criado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Indica se o schema foi criado e populado",
+              "title": "Schema Criado"
+            },
+            "description": "Indica se o schema foi criado e populado"
+          },
+          {
+            "name": "ativo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Indica se a tenant está ativa no sistema",
+              "title": "Ativo"
+            },
+            "description": "Indica se a tenant está ativa no sistema"
+          },
+          {
+            "name": "configuracao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Configurações customizadas em JSON",
+              "title": "Configuracao"
+            },
+            "description": "Configurações customizadas em JSON"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TenantsInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/TenantsInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/TenantsInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TenantsInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetTenants_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tenants"],
+        "summary": "Criar Tenants",
+        "operationId": "criar_tenants",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTenants"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants/{id}": {
+      "patch": {
+        "tags": ["Tenants"],
+        "summary": "Atualizar Tenants",
+        "operationId": "atualizar_tenants",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchTenants"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tenants"],
+        "summary": "Remover Tenants",
+        "operationId": "remover_tenants",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/": {
+      "get": {
+        "tags": ["Usuarios"],
+        "summary": "Ler Usuarios",
+        "operationId": "ler_usuarios",
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "nome_usuario",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Nome único para login no sistema (case insensitive)",
+              "title": "Nome Usuario"
+            },
+            "description": "Nome único para login no sistema (case insensitive)"
+          },
+          {
+            "name": "nome_completo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Nome completo do usuário",
+              "title": "Nome Completo"
+            },
+            "description": "Nome completo do usuário"
+          },
+          {
+            "name": "telefone",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Telefone de contato",
+              "title": "Telefone"
+            },
+            "description": "Telefone de contato"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Endereço de e-mail válido do usuário",
+              "title": "Email"
+            },
+            "description": "Endereço de e-mail válido do usuário"
+          },
+          {
+            "name": "ativo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Indica se a conta está ativa e pode acessar o sistema",
+              "title": "Ativo"
+            },
+            "description": "Indica se a conta está ativa e pode acessar o sistema"
+          },
+          {
+            "name": "papel_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Papeis principal atribuído ao usuário (pode ser nulo)",
+              "title": "Papel Id"
+            },
+            "description": "Papeis principal atribuído ao usuário (pode ser nulo)"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/UsuariosInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsuariosInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsuariosInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuariosExpand"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Relacionamentos a expandir",
+              "title": "Expand"
+            },
+            "description": "Relacionamentos a expandir"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/UsuariosInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetUsuarios_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Usuarios"],
+        "summary": "Criar Usuarios",
+        "operationId": "criar_usuarios",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUsuarios"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "patch": {
+        "tags": ["Usuarios"],
+        "summary": "Atualizar Usuarios",
+        "operationId": "atualizar_usuarios",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUsuarios"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Usuarios"],
+        "summary": "Remover Usuarios",
+        "operationId": "remover_usuarios",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/list-all-routes": {
+      "get": {
+        "tags": ["Dev"],
+        "summary": "List All Routes",
+        "description": "lista todas a rotas do API",
+        "operationId": "list_all_routes_developer_list_all_routes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/list-all-tenants": {
+      "get": {
+        "tags": ["Dev"],
+        "summary": "List All Tenants",
+        "description": "lista todas a rotas do API",
+        "operationId": "list_all_tenants_developer_list_all_tenants_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/tenant/{schema_name}": {
+      "delete": {
+        "tags": ["Dev"],
+        "summary": "Remove Tenant",
+        "description": "cria todas a funcionalidades no banco de dados pegando os sumarios criados nas rotas como sufixo",
+        "operationId": "remove_tenant_developer_tenant__schema_name__delete",
+        "parameters": [
+          {
+            "name": "schema_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "title": "Schema Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/pop-all-functionality": {
+      "post": {
+        "tags": ["Dev"],
+        "summary": "Pop All Functionality",
+        "description": "cria todas a funcionalidades no banco de dados pegando os sumarios criados nas rotas como sufixo",
+        "operationId": "pop_all_functionality_developer_pop_all_functionality_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/pop-initial-data": {
+      "post": {
+        "tags": ["Dev"],
+        "summary": "Pop Initial Data",
+        "description": "popula a base de dados com os dados iniciais",
+        "operationId": "pop_initial_data_developer_pop_initial_data_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/": {
+      "get": {
+        "tags": ["Dev"],
+        "summary": "List All Database Name",
+        "operationId": "list_all_database_name_developer__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/generate/": {
+      "post": {
+        "tags": ["Dev"],
+        "summary": "Generate Schema And Endpoints",
+        "operationId": "generate_schema_and_endpoints_developer_generate__post",
+        "parameters": [
+          {
+            "name": "generate_schema",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Schema"
+            }
+          },
+          {
+            "name": "generate_endpoits",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Endpoits"
+            }
+          },
+          {
+            "name": "generate_controllers",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Controllers"
+            }
+          },
+          {
+            "name": "generate_teste",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Teste"
+            }
+          },
+          {
+            "name": "generate_frontend",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Frontend"
+            }
+          },
+          {
+            "name": "generate_doc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Generate Doc"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios-funcionalidades/": {
+      "get": {
+        "tags": ["UsuariosFuncionalidades"],
+        "summary": "Ler Usuarios Funcionalidades",
+        "operationId": "ler_usuarios_funcionalidades",
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "usuario_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Chave estrangeira referenciando o ID do Usuário",
+              "title": "Usuario Id"
+            },
+            "description": "Chave estrangeira referenciando o ID do Usuário"
+          },
+          {
+            "name": "funcionalidade_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Chave estrangeira referenciando o ID da Funcionalidades",
+              "title": "Funcionalidade Id"
+            },
+            "description": "Chave estrangeira referenciando o ID da Funcionalidades"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/UsuariosFuncionalidadesInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsuariosFuncionalidadesInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsuariosFuncionalidadesInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuariosFuncionalidadesExpand"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Relacionamentos a expandir",
+              "title": "Expand"
+            },
+            "description": "Relacionamentos a expandir"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/UsuariosFuncionalidadesInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetUsuariosFuncionalidades_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["UsuariosFuncionalidades"],
+        "summary": "Criar Usuarios Funcionalidades",
+        "operationId": "criar_usuarios_funcionalidades",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUsuariosFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios-funcionalidades/{id}": {
+      "patch": {
+        "tags": ["UsuariosFuncionalidades"],
+        "summary": "Atualizar Usuarios Funcionalidades",
+        "operationId": "atualizar_usuarios_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUsuariosFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["UsuariosFuncionalidades"],
+        "summary": "Remover Usuarios Funcionalidades",
+        "operationId": "remover_usuarios_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/papeis/": {
+      "get": {
+        "tags": ["Papeis"],
+        "summary": "Ler Papeis",
+        "operationId": "ler_papeis",
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Nome identificador único do papeis (ex: 'Admin', 'Gerente')",
+              "title": "Nome"
+            },
+            "description": "Nome identificador único do papeis (ex: 'Admin', 'Gerente')"
+          },
+          {
+            "name": "ativo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Indica se o papeis está ativo e disponível para atribuição",
+              "title": "Ativo"
+            },
+            "description": "Indica se o papeis está ativo e disponível para atribuição"
+          },
+          {
+            "name": "descricao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Descrição detalhada das permissões e responsabilidades do papeis",
+              "title": "Descricao"
+            },
+            "description": "Descrição detalhada das permissões e responsabilidades do papeis"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PapeisInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PapeisInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PapeisInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PapeisInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetPapeis_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Papeis"],
+        "summary": "Criar Papeis",
+        "operationId": "criar_papeis",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPapeis"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/papeis/{id}": {
+      "patch": {
+        "tags": ["Papeis"],
+        "summary": "Atualizar Papeis",
+        "operationId": "atualizar_papeis",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchPapeis"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Papeis"],
+        "summary": "Remover Papeis",
+        "operationId": "remover_papeis",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/access-token": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login",
+        "description": "Logar",
+        "operationId": "login_access_token",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_access_token"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseLoginAcessToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/session-token": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login",
+        "description": "Logar com sessão",
+        "operationId": "login_session_token",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_session_token"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseLoginSessionToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/esqueci-senha/": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Esqueci Senha",
+        "description": "Esqueci minha senha",
+        "operationId": "esqueci_senha",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EsqueciSenha"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEsqueciSenha"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/esqueci-senha/code": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Redefinir Senha Codigo",
+        "description": "Compara o codigo enviado para o email",
+        "operationId": "esqueci_senha_codigo",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Code"
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Authentication"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEsqueciSenhaCodigo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nova-senha/": {
+      "put": {
+        "tags": ["Auth"],
+        "summary": "Put Password",
+        "description": "Altera a senha do usuarios",
+        "operationId": "nova_senha",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Authentication"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NovaSenha"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/papeis-funcionalidades/": {
+      "get": {
+        "tags": ["PapeisFuncionalidades"],
+        "summary": "Ler Papeis Funcionalidades",
+        "operationId": "ler_papeis_funcionalidades",
+        "parameters": [
+          {
+            "name": "all_data",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar todas as correspondências ou apenas a primeira",
+              "default": true,
+              "title": "All Data"
+            },
+            "description": "Retornar todas as correspondências ou apenas a primeira"
+          },
+          {
+            "name": "papel_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Chave estrangeira referenciando o ID do Papeis",
+              "title": "Papel Id"
+            },
+            "description": "Chave estrangeira referenciando o ID do Papeis"
+          },
+          {
+            "name": "funcionalidade_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "",
+              "title": "Funcionalidade Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identificador único universal (UUIDv4) da entidade",
+              "title": "Id"
+            },
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          {
+            "name": "criado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da criação do registro",
+              "title": "Criado Em"
+            },
+            "description": "Data e hora UTC da criação do registro"
+          },
+          {
+            "name": "atualizado_em",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)",
+              "title": "Atualizado Em"
+            },
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Número máximo de itens a retornar",
+              "title": "Limit"
+            },
+            "description": "Número máximo de itens a retornar"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Offset absoluto para paginação (alternativa a skip)",
+              "title": "Offset"
+            },
+            "description": "Offset absoluto para paginação (alternativa a skip)"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Valor do cursor para paginação baseada em cursor",
+              "title": "Cursor"
+            },
+            "description": "Valor do cursor para paginação baseada em cursor"
+          },
+          {
+            "name": "cursor_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PapeisFuncionalidadesInclude",
+              "description": "Campo a ser usado como cursor (padrão: 'id')",
+              "default": "id"
+            },
+            "description": "Campo a ser usado como cursor (padrão: 'id')"
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__CursorDirection",
+              "description": "Direção da paginação por cursor (next|prev)",
+              "default": "next"
+            },
+            "description": "Direção da paginação por cursor (next|prev)"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PapeisFuncionalidadesInclude"
+              },
+              "description": "Atributos a incluir na resposta",
+              "default": [],
+              "title": "Include"
+            },
+            "description": "Atributos a incluir na resposta"
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PapeisFuncionalidadesInclude"
+              },
+              "description": "Atributos a excluir da resposta",
+              "default": [],
+              "title": "Exclude"
+            },
+            "description": "Atributos a excluir da resposta"
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PapeisFuncionalidadesExpand"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Relacionamentos a expandir",
+              "title": "Expand"
+            },
+            "description": "Relacionamentos a expandir"
+          },
+          {
+            "name": "count_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Retornar apenas a contagem total de itens, sem os dados",
+              "default": false,
+              "title": "Count Only"
+            },
+            "description": "Retornar apenas a contagem total de itens, sem os dados"
+          },
+          {
+            "name": "distinct",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Aplicar DISTINCT na consulta para evitar duplicatas",
+              "default": false,
+              "title": "Distinct"
+            },
+            "description": "Aplicar DISTINCT na consulta para evitar duplicatas"
+          },
+          {
+            "name": "sort_op",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/app__schema__papeis_funcionalidades_schema__SortOp",
+              "description": "operador da ordem do resultado (ASC | DESC)"
+            },
+            "description": "operador da ordem do resultado (ASC | DESC)"
+          },
+          {
+            "name": "sort_field",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PapeisFuncionalidadesInclude",
+              "description": "ordem do resultado (ex: criado_em)"
+            },
+            "description": "ordem do resultado (ex: criado_em)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_GetPapeisFuncionalidades_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["PapeisFuncionalidades"],
+        "summary": "Criar Papeis Funcionalidades",
+        "operationId": "criar_papeis_funcionalidades",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPapeisFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/papeis-funcionalidades/{id}": {
+      "patch": {
+        "tags": ["PapeisFuncionalidades"],
+        "summary": "Atualizar Papeis Funcionalidades",
+        "operationId": "atualizar_papeis_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser atualizado",
+              "title": "Id"
+            },
+            "description": "ID dado a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchPapeisFuncionalidades"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["PapeisFuncionalidades"],
+        "summary": "Remover Papeis Funcionalidades",
+        "operationId": "remover_papeis_funcionalidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID dado a ser removido",
+              "title": "Id"
+            },
+            "description": "ID dado a ser removido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiSuccess_NoneType_"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiSuccess_GetFuncionalidades_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetFuncionalidades"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetFuncionalidades]"
+      },
+      "ApiSuccess_GetPapeisFuncionalidades_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetPapeisFuncionalidades"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetPapeisFuncionalidades]"
+      },
+      "ApiSuccess_GetPapeis_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetPapeis"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetPapeis]"
+      },
+      "ApiSuccess_GetTenants_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetTenants"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetTenants]"
+      },
+      "ApiSuccess_GetUsuariosFuncionalidades_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetUsuariosFuncionalidades"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetUsuariosFuncionalidades]"
+      },
+      "ApiSuccess_GetUsuarios_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GetUsuarios"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[GetUsuarios]"
+      },
+      "ApiSuccess_NoneType_": {
+        "properties": {
+          "msg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msg",
+            "default": "Success"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "null"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data",
+            "description": "Lista de itens do tipo especificado"
+          }
+        },
+        "type": "object",
+        "title": "ApiSuccess[NoneType]"
+      },
+      "Body_login_access_token": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username",
+            "description": "nome_usuario Documentar"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "senha Documentar"
+          }
+        },
+        "type": "object",
+        "required": ["username", "password"],
+        "title": "Body_login_access_token"
+      },
+      "Body_login_session_token": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username",
+            "description": "nome_usuario Documentar"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "senha Documentar"
+          }
+        },
+        "type": "object",
+        "required": ["username", "password"],
+        "title": "Body_login_session_token"
+      },
+      "Detail": {
+        "properties": {
+          "loc": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loc",
+            "description": "Lista de localizações onde o erro ocorreu",
+            "default": ["global"]
+          },
+          "msg": {
+            "type": "string",
+            "title": "Msg",
+            "description": "Mensagem descritiva do erro"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "Tipo/categoria do erro"
+          },
+          "debug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Debug",
+            "description": "Detalhes adicionais do erro retornados em desenvolvimento"
+          }
+        },
+        "type": "object",
+        "required": ["msg"],
+        "title": "Detail"
+      },
+      "ErrorSchema": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/Detail"
+            },
+            "type": "array",
+            "title": "Detail",
+            "description": "Lista de detalhes dos erros ocorridos"
+          }
+        },
+        "type": "object",
+        "required": ["detail"],
+        "title": "ErrorSchema"
+      },
+      "EsqueciSenha": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": ["email"],
+        "title": "EsqueciSenha"
+      },
+      "FuncionalidadesExpand": {
+        "type": "string",
+        "enum": [""],
+        "title": "FuncionalidadesExpand"
+      },
+      "FuncionalidadesInclude": {
+        "type": "string",
+        "enum": [
+          "chave",
+          "nome",
+          "escopo",
+          "caminho",
+          "metodo",
+          "descricao",
+          "categoria",
+          "sensivel",
+          "versao",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "FuncionalidadesInclude"
+      },
+      "GetFuncionalidades": {
+        "properties": {
+          "chave": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chave",
+            "description": "Chave de acesso autoincrementada"
+          },
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome amigável da funcionalidades (ex: 'Excluir Cliente')"
+          },
+          "escopo": {
+            "type": "string",
+            "title": "Escopo",
+            "description": "Identificador único no formato 'recurso:ação' (ex: 'client:delete')"
+          },
+          "caminho": {
+            "type": "string",
+            "title": "Caminho",
+            "description": "Endpoint da API (ex: '/api/client/{id}')"
+          },
+          "metodo": {
+            "type": "string",
+            "title": "Metodo",
+            "description": "Método HTTP (GET, POST, PUT, DELETE, etc)"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada do propósito da funcionalidades"
+          },
+          "categoria": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categoria",
+            "description": "Grupo funcional (ex: 'CRM', 'Financeiro', 'Relatórios')"
+          },
+          "sensivel": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensivel",
+            "description": "Indica se é uma operação crítica/cuidado extra necessário"
+          },
+          "versao": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Versao",
+            "description": "Versão da funcionalidades para controle de evolução"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          }
+        },
+        "type": "object",
+        "title": "GetFuncionalidades"
+      },
+      "GetPapeis": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome identificador único do papeis (ex: 'Admin', 'Gerente')"
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se o papeis está ativo e disponível para atribuição"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada das permissões e responsabilidades do papeis"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          }
+        },
+        "type": "object",
+        "title": "GetPapeis"
+      },
+      "GetPapeisFuncionalidades": {
+        "properties": {
+          "papel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Papel Id",
+            "description": "Chave estrangeira referenciando o ID do Papeis"
+          },
+          "funcionalidade_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Funcionalidade Id",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          "funcionalidades": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GetFuncionalidades"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "papeis": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GetPapeis"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "GetPapeisFuncionalidades"
+      },
+      "GetTenants": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome único da tenant/organização"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug",
+            "description": "Slug único para identificação na URL (ex: nome-empresa)"
+          },
+          "schema_criado": {
+            "type": "boolean",
+            "title": "Schema Criado",
+            "description": "Indica se o schema foi criado e populado"
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se a tenant está ativa no sistema"
+          },
+          "configuracao": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Configuracao",
+            "description": "Configurações customizadas em JSON"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          }
+        },
+        "type": "object",
+        "title": "GetTenants"
+      },
+      "GetUsuarios": {
+        "properties": {
+          "nome_usuario": {
+            "type": "string",
+            "title": "Nome Usuario",
+            "description": "Nome único para login no sistema (case insensitive)"
+          },
+          "nome_completo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome Completo",
+            "description": "Nome completo do usuário"
+          },
+          "telefone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telefone",
+            "description": "Telefone de contato"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "description": "Endereço de e-mail válido do usuário"
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se a conta está ativa e pode acessar o sistema"
+          },
+          "papel_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Papel Id",
+            "description": "Papeis principal atribuído ao usuário (pode ser nulo)"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          "papeis": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GetPapeis"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "usuarios_funcionalidades": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/GetUsuariosFuncionalidades"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Usuarios Funcionalidades"
+          }
+        },
+        "type": "object",
+        "title": "GetUsuarios"
+      },
+      "GetUsuariosFuncionalidades": {
+        "properties": {
+          "usuario_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Usuario Id",
+            "description": "Chave estrangeira referenciando o ID do Usuário"
+          },
+          "funcionalidade_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Funcionalidade Id",
+            "description": "Chave estrangeira referenciando o ID da Funcionalidades"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id",
+            "description": "Identificador único universal (UUIDv4) da entidade"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Criado Em",
+            "description": "Data e hora UTC da criação do registro"
+          },
+          "atualizado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atualizado Em",
+            "description": "Data e hora UTC da última atualização do registro (null se nunca foi atualizado)"
+          },
+          "funcionalidades": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GetFuncionalidades"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "GetUsuariosFuncionalidades"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Meta": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items",
+            "description": "Total de itens disponíveis",
+            "default": 0
+          },
+          "total_query": {
+            "type": "integer",
+            "title": "Total Query",
+            "description": "Total de itens retornados na consulta",
+            "default": 0
+          },
+          "items_per_page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Items Per Page",
+            "description": "Quantidade de itens por página",
+            "default": 10
+          },
+          "current_page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Page",
+            "description": "Página atual"
+          },
+          "total_pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Pages",
+            "description": "Total de páginas"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "Cursor para próxima página"
+          },
+          "prev_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prev Cursor",
+            "description": "Cursor para página anterior"
+          },
+          "next_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Offset",
+            "description": "Offset para próxima página"
+          },
+          "prev_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prev Offset",
+            "description": "Offset para página anterior"
+          },
+          "has_next": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has Next",
+            "description": "Existem mais itens após os retornados"
+          },
+          "has_prev": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has Prev",
+            "description": "Existem itens antes dos retornados"
+          }
+        },
+        "type": "object",
+        "title": "Meta",
+        "description": "Metadados para operações",
+        "example": {
+          "current_page": 1,
+          "has_next": true,
+          "has_prev": true,
+          "items_per_page": 10,
+          "next_cursor": "abc123",
+          "next_offset": 10,
+          "prev_cursor": "zyx987",
+          "prev_offset": 0,
+          "total_items": 75,
+          "total_pages": 15
+        }
+      },
+      "NovaSenha": {
+        "properties": {
+          "senha": {
+            "type": "string",
+            "format": "binary",
+            "title": "Senha",
+            "description": "Senha"
+          }
+        },
+        "type": "object",
+        "required": ["senha"],
+        "title": "NovaSenha"
+      },
+      "PapeisExpand": {
+        "type": "string",
+        "enum": [""],
+        "title": "PapeisExpand"
+      },
+      "PapeisFuncionalidadesExpand": {
+        "type": "string",
+        "enum": ["funcionalidades", "papeis"],
+        "title": "PapeisFuncionalidadesExpand"
+      },
+      "PapeisFuncionalidadesInclude": {
+        "type": "string",
+        "enum": [
+          "papel_id",
+          "funcionalidade_id",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "PapeisFuncionalidadesInclude"
+      },
+      "PapeisInclude": {
+        "type": "string",
+        "enum": [
+          "nome",
+          "ativo",
+          "descricao",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "PapeisInclude"
+      },
+      "PatchFuncionalidades": {
+        "properties": {
+          "nome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome",
+            "description": "Nome amigável da funcionalidades (ex: 'Excluir Cliente')"
+          },
+          "escopo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escopo",
+            "description": "Identificador único no formato 'recurso:ação' (ex: 'client:delete')"
+          },
+          "caminho": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caminho",
+            "description": "Endpoint da API (ex: '/api/client/{id}')"
+          },
+          "metodo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metodo",
+            "description": "Método HTTP (GET, POST, PUT, DELETE, etc)"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada do propósito da funcionalidades"
+          },
+          "categoria": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categoria",
+            "description": "Grupo funcional (ex: 'CRM', 'Financeiro', 'Relatórios')"
+          },
+          "sensivel": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensivel",
+            "description": "Indica se é uma operação crítica/cuidado extra necessário"
+          },
+          "versao": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Versao",
+            "description": "Versão da funcionalidades para controle de evolução"
+          }
+        },
+        "type": "object",
+        "title": "PatchFuncionalidades"
+      },
+      "PatchPapeis": {
+        "properties": {
+          "nome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome",
+            "description": "Nome identificador único do papeis (ex: 'Admin', 'Gerente')"
+          },
+          "ativo": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ativo",
+            "description": "Indica se o papeis está ativo e disponível para atribuição"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada das permissões e responsabilidades do papeis"
+          }
+        },
+        "type": "object",
+        "title": "PatchPapeis"
+      },
+      "PatchPapeisFuncionalidades": {
+        "properties": {
+          "papel_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Papel Id",
+            "description": "Chave estrangeira referenciando o ID do Papeis"
+          },
+          "funcionalidade_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funcionalidade Id",
+            "description": ""
+          }
+        },
+        "type": "object",
+        "title": "PatchPapeisFuncionalidades"
+      },
+      "PatchTenants": {
+        "properties": {
+          "nome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome",
+            "description": "Nome único da tenant/organização"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slug",
+            "description": "Slug único para identificação na URL (ex: nome-empresa)"
+          },
+          "schema_criado": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Schema Criado",
+            "description": "Indica se o schema foi criado e populado"
+          },
+          "ativo": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ativo",
+            "description": "Indica se a tenant está ativa no sistema"
+          },
+          "configuracao": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Configuracao",
+            "description": "Configurações customizadas em JSON"
+          }
+        },
+        "type": "object",
+        "title": "PatchTenants"
+      },
+      "PatchUsuarios": {
+        "properties": {
+          "nome_usuario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome Usuario",
+            "description": "Nome único para login no sistema (case insensitive)"
+          },
+          "nome_completo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome Completo",
+            "description": "Nome completo do usuário"
+          },
+          "telefone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telefone",
+            "description": "Telefone de contato"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email",
+            "description": "Endereço de e-mail válido do usuário"
+          },
+          "senha": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Senha",
+            "description": "Hash da senha do usuário (armazenado de forma criptografada)"
+          },
+          "ativo": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ativo",
+            "description": "Indica se a conta está ativa e pode acessar o sistema"
+          },
+          "papel_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Papel Id",
+            "description": "Papeis principal atribuído ao usuário (pode ser nulo)"
+          }
+        },
+        "type": "object",
+        "title": "PatchUsuarios"
+      },
+      "PatchUsuariosFuncionalidades": {
+        "properties": {
+          "usuario_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Usuario Id",
+            "description": "Chave estrangeira referenciando o ID do Usuário"
+          },
+          "funcionalidade_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funcionalidade Id",
+            "description": "Chave estrangeira referenciando o ID da Funcionalidades"
+          }
+        },
+        "type": "object",
+        "title": "PatchUsuariosFuncionalidades"
+      },
+      "PostFuncionalidades": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome amigável da funcionalidades (ex: 'Excluir Cliente')"
+          },
+          "escopo": {
+            "type": "string",
+            "title": "Escopo",
+            "description": "Identificador único no formato 'recurso:ação' (ex: 'client:delete')"
+          },
+          "caminho": {
+            "type": "string",
+            "title": "Caminho",
+            "description": "Endpoint da API (ex: '/api/client/{id}')"
+          },
+          "metodo": {
+            "type": "string",
+            "title": "Metodo",
+            "description": "Método HTTP (GET, POST, PUT, DELETE, etc)"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada do propósito da funcionalidades"
+          },
+          "categoria": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categoria",
+            "description": "Grupo funcional (ex: 'CRM', 'Financeiro', 'Relatórios')"
+          },
+          "sensivel": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensivel",
+            "description": "Indica se é uma operação crítica/cuidado extra necessário",
+            "default": false
+          },
+          "versao": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Versao",
+            "description": "Versão da funcionalidades para controle de evolução",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "required": ["nome", "escopo", "caminho", "metodo"],
+        "title": "PostFuncionalidades"
+      },
+      "PostPapeis": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome identificador único do papeis (ex: 'Admin', 'Gerente')"
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se o papeis está ativo e disponível para atribuição",
+            "default": true
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada das permissões e responsabilidades do papeis"
+          }
+        },
+        "type": "object",
+        "required": ["nome"],
+        "title": "PostPapeis"
+      },
+      "PostPapeisFuncionalidades": {
+        "properties": {
+          "papel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Papel Id",
+            "description": "Chave estrangeira referenciando o ID do Papeis"
+          },
+          "funcionalidade_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Funcionalidade Id",
+            "description": ""
+          }
+        },
+        "type": "object",
+        "required": ["papel_id", "funcionalidade_id"],
+        "title": "PostPapeisFuncionalidades"
+      },
+      "PostTenants": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "title": "Nome",
+            "description": "Nome único da tenant/organização"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug",
+            "description": "Slug único para identificação na URL (ex: nome-empresa)"
+          },
+          "schema_criado": {
+            "type": "boolean",
+            "title": "Schema Criado",
+            "description": "Indica se o schema foi criado e populado",
+            "default": false
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se a tenant está ativa no sistema",
+            "default": true
+          },
+          "configuracao": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Configuracao",
+            "description": "Configurações customizadas em JSON"
+          }
+        },
+        "type": "object",
+        "required": ["nome", "slug"],
+        "title": "PostTenants"
+      },
+      "PostUsuarios": {
+        "properties": {
+          "nome_usuario": {
+            "type": "string",
+            "title": "Nome Usuario",
+            "description": "Nome único para login no sistema (case insensitive)"
+          },
+          "nome_completo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nome Completo",
+            "description": "Nome completo do usuário"
+          },
+          "telefone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telefone",
+            "description": "Telefone de contato"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "description": "Endereço de e-mail válido do usuário"
+          },
+          "senha": {
+            "type": "string",
+            "format": "binary",
+            "title": "Senha",
+            "description": "Hash da senha do usuário (armazenado de forma criptografada)"
+          },
+          "ativo": {
+            "type": "boolean",
+            "title": "Ativo",
+            "description": "Indica se a conta está ativa e pode acessar o sistema",
+            "default": true
+          },
+          "papel_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Papel Id",
+            "description": "Papeis principal atribuído ao usuário (pode ser nulo)"
+          }
+        },
+        "type": "object",
+        "required": ["nome_usuario", "email", "senha"],
+        "title": "PostUsuarios"
+      },
+      "PostUsuariosFuncionalidades": {
+        "properties": {
+          "usuario_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Usuario Id",
+            "description": "Chave estrangeira referenciando o ID do Usuário"
+          },
+          "funcionalidade_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Funcionalidade Id",
+            "description": "Chave estrangeira referenciando o ID da Funcionalidades"
+          }
+        },
+        "type": "object",
+        "required": ["usuario_id", "funcionalidade_id"],
+        "title": "PostUsuariosFuncionalidades"
+      },
+      "ResponseEsqueciSenha": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": ["token"],
+        "title": "ResponseEsqueciSenha"
+      },
+      "ResponseEsqueciSenhaCodigo": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": ["token"],
+        "title": "ResponseEsqueciSenhaCodigo"
+      },
+      "ResponseLoginAcessToken": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          },
+          "permission": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Permission"
+          },
+          "user": {
+            "$ref": "#/components/schemas/GetUsuarios"
+          },
+          "papel": {
+            "type": "string",
+            "title": "Papel"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "token_type",
+          "permission",
+          "user",
+          "papel"
+        ],
+        "title": "ResponseLoginAcessToken"
+      },
+      "ResponseLoginSessionToken": {
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/GetUsuarios"
+          }
+        },
+        "type": "object",
+        "required": ["user"],
+        "title": "ResponseLoginSessionToken"
+      },
+      "TenantsExpand": {
+        "type": "string",
+        "enum": [""],
+        "title": "TenantsExpand"
+      },
+      "TenantsInclude": {
+        "type": "string",
+        "enum": [
+          "nome",
+          "slug",
+          "schema_criado",
+          "ativo",
+          "configuracao",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "TenantsInclude"
+      },
+      "UsuariosExpand": {
+        "type": "string",
+        "enum": ["papeis", "usuarios_funcionalidades"],
+        "title": "UsuariosExpand"
+      },
+      "UsuariosFuncionalidadesExpand": {
+        "type": "string",
+        "enum": ["funcionalidades", "usuarios"],
+        "title": "UsuariosFuncionalidadesExpand"
+      },
+      "UsuariosFuncionalidadesInclude": {
+        "type": "string",
+        "enum": [
+          "usuario_id",
+          "funcionalidade_id",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "UsuariosFuncionalidadesInclude"
+      },
+      "UsuariosInclude": {
+        "type": "string",
+        "enum": [
+          "nome_usuario",
+          "nome_completo",
+          "telefone",
+          "email",
+          "ativo",
+          "papel_id",
+          "id",
+          "criado_em",
+          "atualizado_em"
+        ],
+        "title": "UsuariosInclude"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "app__schema__papeis_funcionalidades_schema__CursorDirection": {
+        "type": "string",
+        "enum": ["next", "prev"],
+        "title": "CursorDirection"
+      },
+      "app__schema__papeis_funcionalidades_schema__SortOp": {
+        "type": "string",
+        "enum": ["ASC", "DESC"],
+        "title": "SortOp"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "tokenUrl": "login/access-token",
+            "scopes": {}
+          }
+        }
+      },
+      "tenant_header": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-tenant-id",
+        "description": "ID do Tenant (obrigatório)"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2PasswordBearer": []
+    },
+    {
+      "tenant_header": []
+    }
+  ]
+}

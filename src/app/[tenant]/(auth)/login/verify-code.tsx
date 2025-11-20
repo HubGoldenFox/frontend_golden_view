@@ -153,7 +153,7 @@ const VerifyCode: React.FC<Props> = ({ token, setToken, setControl }) => {
 
         <div className="text-center mt-6 text-xs text-muted-foreground animate-fade-in-delay">
           <p>
-            &copy; {new Date().getFullYear()} GestorIA 360. Todos os direitos
+            &copy; {new Date().getFullYear()} Golden View. Todos os direitos
             reservados.
           </p>
         </div>

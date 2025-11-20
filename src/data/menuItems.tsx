@@ -4,12 +4,16 @@ import {
   Brain,
   Building2,
   Calendar,
+  Files,
   FileText,
   Home,
+  Layers,
+  LayoutDashboard,
   Phone,
   Settings,
   Shield,
   User,
+  UserCircle,
   Users,
   UsersRound,
 } from 'lucide-react'
@@ -23,86 +27,53 @@ interface MenuItem {
   children?: MenuItem[]
 }
 
-export const menuAdmin: MenuItem[] = [
-  {
-    id: 'dashboard',
-    title: 'Dashboard',
-    path: '/admin/dashboard',
-    icon: <Home className="h-5 w-5" />,
-    enabled: true,
-  },
+export const menuAdmin = (path: string) => {
+  return [
+    {
+      id: 'dashboard',
+      title: 'Dashboard',
+      path: `/${path}/admin/dashboard`,
+      icon: <LayoutDashboard className="h-5 w-5" />,
+      enabled: true,
+    },
 
-  {
-    id: 'calls',
-    title: 'Atendimentos',
-    path: '/admin/atendimentos',
-    icon: <Phone className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'enterprises',
-    title: 'Empresas',
-    path: '/admin/empresas',
-    icon: <Building2 className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'users',
-    title: 'Usuários',
-    path: '/admin/usuarios',
-    icon: <Users className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'roles',
-    title: 'Papéis',
-    path: '/admin/papeis',
-    icon: <Shield className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'teams',
-    title: 'Equipes',
-    path: '/admin/equipes',
-    icon: <UsersRound className="h-5 w-5" />,
-    enabled: true,
-  },
-  // {
-  //   id: 'schedule',
-  //   title: 'Agenda',
-  //   path: '/admin/schedule',
-  //   icon: <Calendar size={20} />,
-  //   enabled: true,
-  // },
-  // {
-  //   id: 'trainings',
-  //   title: 'Treinamentos',
-  //   path: '/admin/trainings',
-  //   icon: <BookOpen className="h-5 w-5" />,
-  //   enabled: true,
-  // },
-  {
-    id: 'analytics',
-    title: 'Análises',
-    path: '/admin/analises',
-    icon: <Brain className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'reports',
-    title: 'Relatórios',
-    path: '/admin/relatorios',
-    icon: <FileText className="h-5 w-5" />,
-    enabled: true,
-  },
-  {
-    id: 'settings',
-    title: 'Configurações',
-    path: '/admin/configuracoes',
-    icon: <Settings className="h-5 w-5" />,
-    enabled: true,
-  },
-]
+    {
+      id: 'companies',
+      title: 'Empresas',
+      path: `/${path}/admin/empresas`,
+      icon: <Building2 className="h-5 w-5" />,
+      enabled: true,
+    },
+    {
+      id: 'users',
+      title: 'Usuários',
+      path: `/${path}/admin/usuarios`,
+      icon: <UserCircle className="h-5 w-5" />,
+      enabled: true,
+    },
+    {
+      id: 'reports',
+      title: 'Gestão Relatórios',
+      path: `/${path}/admin/relatorios`,
+      icon: <Files className="h-5 w-5" />,
+      enabled: true,
+    },
+    {
+      id: 'teams',
+      title: 'Grupos Globais',
+      path: `/${path}/admin/grupos`,
+      icon: <Layers className="h-5 w-5" />,
+      enabled: true,
+    },
+    {
+      id: 'settings',
+      title: 'Configurações',
+      path: `/${path}/admin/configuracoes`,
+      icon: <Settings className="h-5 w-5" />,
+      enabled: true,
+    },
+  ]
+}
 
 export const menuGestor: MenuItem[] = [
   {

@@ -38,7 +38,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     return (
       <div
         ref={ref}
-        aria-label="Logo GestorIA360"
+        aria-label="Logo Golden View"
         className={`flex items-center font-bold tracking-tight ${sizeClasses[size]} ${className}`}
       >
         {!isAdminMode &&
@@ -47,26 +47,20 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
         tenant?.configuracao?.logoBase64 ? (
           <>
             <Image
-              src={tenant?.configuracao?.logoBase64 ?? ''}
+              src={tenant?.configuracao?.logoBase64 ?? '/default-logo.png'}
               alt={'logo da aplicação'}
-              width={180}
-              height={180}
+              width={150}
+              height={150}
             />
           </>
         ) : (
           <>
-            {withIcon && (
-              <svg
-                className={`mr-2 ${iconSizeClasses[size]}`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 10H5a1 1 0 000 2h4a1 1 0 100-2zm1-6a1 1 0 011 1v4a1 1 0 11-2 0V5a1 1 0 011-1z" />
-              </svg>
-            )}
-            <span className="text-foreground">Gestor</span>
-            <span className="text-primary">AI</span>
-            <span className="text-muted-foreground">360</span>
+            <Image
+              src={'/default-logo.png'}
+              alt={'logo da aplicação'}
+              width={150}
+              height={150}
+            />
           </>
         )}
       </div>
