@@ -9,14 +9,11 @@ import {
   DEFAULT_LIGHT_COLORS,
   mergeThemeColors,
 } from '@/utils/themeMerge'
-import axios from 'axios'
+import { default as api, default as axios } from 'axios'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-// Chave para armazenar o tema admin no localStorage
-const ADMIN_THEME_STORAGE_KEY = 'admin_theme_config'
-
 export function useThemeCustomization() {
-  const { tenant, isAdminMode } = useAuthTenant()
+  const { tenant, isAdminMode, auth } = useAuthTenant()
   const { update } = useHook()
 
   const [themeConfig, setThemeConfig] = useState<ThemeGeneral | null>(null)
@@ -57,24 +54,6 @@ export function useThemeCustomization() {
     setThemeConfig(data)
   }, [])
 
-  // 🔹 Salvar tema admin no localStorage
-  const saveAdminThemeToStorage = useCallback((theme: ThemeGeneral) => {
-    if (typeof window === 'undefined') return
-
-    localStorage.setItem(ADMIN_THEME_STORAGE_KEY, JSON.stringify(theme))
-  }, [])
-
-  // 🔹 Carregar tema admin do localStorage
-  const loadAdminThemeFromStorage = useCallback((): ThemeGeneral | null => {
-    if (typeof window === 'undefined') return null
-    try {
-      const stored = localStorage.getItem(ADMIN_THEME_STORAGE_KEY)
-      return stored ? JSON.parse(stored) : null
-    } catch (error) {
-      return null
-    }
-  }, [])
-
   // 🔹 Cria tema padrão
   const createDefaultTheme = useCallback(
     (): ThemeGeneral => ({
@@ -98,12 +77,8 @@ export function useThemeCustomization() {
     try {
       let themeToApply: ThemeGeneral
 
-      if (isAdminMode) {
-        // Modo Admin: Carrega do localStorage
-        const storedTheme = loadAdminThemeFromStorage()
-        themeToApply = storedTheme || createDefaultTheme()
-      } else if (tenant?.id) {
-        // Modo Tenant: Carrega da API
+      if (tenant?.id) {
+        // Tanto admin quanto usuário normal carregam do tenant
         try {
           const response = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/tenants`,
@@ -136,13 +111,7 @@ export function useThemeCustomization() {
     } finally {
       setLoading(false)
     }
-  }, [
-    tenant,
-    applyTheme,
-    isAdminMode,
-    createDefaultTheme,
-    loadAdminThemeFromStorage,
-  ])
+  }, [tenant, applyTheme, createDefaultTheme])
 
   useEffect(() => {
     loadTheme()
@@ -161,22 +130,31 @@ export function useThemeCustomization() {
       try {
         applyTheme(newTheme, true)
 
-        if (isAdminMode) {
-          // Modo Admin: Salva no localStorage
-          saveAdminThemeToStorage(newTheme)
-        } else if (tenant?.id) {
-          // Modo Tenant: Salva na API
+        if (tenant?.id && !isAdminMode) {
+          // Tanto admin quanto usuário normal salvam no tenant
           await update(tenant.id, { configuracao: newTheme })
+        } else if (tenant?.id) {
+          console.log({ configuracao: newTheme })
+          await api.patch(
+            `${process.env.NEXT_PUBLIC_API_URL}/tenants/${tenant.id}`,
+            {
+              configuracao: newTheme,
+            },
+            {
+              headers: { Authorization: `Bearer ${auth.token}` },
+            }
+          )
         }
 
         setThemeConfig(newTheme)
       } catch (error) {
+        console.log(error)
         throw error
       } finally {
         setSaving(false)
       }
     },
-    [tenant, update, applyTheme, isAdminMode, saveAdminThemeToStorage]
+    [tenant, update, applyTheme]
   )
 
   return {
