@@ -160,7 +160,7 @@ export default function Sidebar({ menuItems, user }: SidebarProps) {
 
       <div className="flex items-center justify-center px-6 py-4 border-b border-border">
         <Link
-          href={`/${tenant?.slug}/admin/dashboard`}
+          href={`/${tenant?.slug}/dashboard`}
           className="flex items-center justify-center"
         >
           <div className="w-20 h-20 flex items-center justify-center overflow-hidden rounded">

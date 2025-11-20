@@ -161,7 +161,7 @@ export default function CompanyDetails() {
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Link
-          href={`/${tenant?.slug}/admin/empresas`}
+          href={`/${tenant?.slug}/empresas`}
           className="flex items-center text-muted-foreground hover:text-foreground text-sm transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-1" /> Voltar para Empresas
@@ -895,7 +895,7 @@ export default function CompanyDetails() {
                         <button
                           onClick={() =>
                             navigate.push(
-                              `/${tenant?.slug}/admin/relatorios/${report.id}`
+                              `/${tenant?.slug}/relatorios/${report.id}`
                             )
                           }
                           className="flex items-center gap-1 text-xs bg-primary/5 text-primary hover:bg-primary/10 px-3 py-1.5 rounded font-medium transition-colors"

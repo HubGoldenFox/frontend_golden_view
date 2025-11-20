@@ -1,24 +1,28 @@
+// app/page.tsx
 'use client'
 
-import { useAuthTenant } from '@/hooks/useAuthTenant'
+import Loading from '@/components/custom/Loading'
+import { useTenant } from '@/contexts/TenantContext'
+import { useThemeCustomization } from '@/hooks/useThemeCustomization'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-const Admin = () => {
+export default function Home() {
+  const { isLoading, tenant } = useTenant()
+  const { loading } = useThemeCustomization()
   const router = useRouter()
-  const { tenant } = useAuthTenant()
 
-  const path = tenant?.subdominio || ''
-
+  // Redirecionamento
   useEffect(() => {
-    if (path) {
-      router.push(`/${path}/admin/dashboard`)
-    } else {
-      router.push(`/${path}/login`)
+    if (!isLoading && !loading) {
+      if (tenant) {
+        const path = tenant.subdominio || tenant.dominio
+        router.push(`${path}/login`)
+      } else {
+        router.push(`/admin/login`)
+      }
     }
-  }, [path])
+  }, [router, isLoading, loading, tenant])
 
-  return <></>
+  return <div>{(isLoading || loading) && <Loading />}</div>
 }
-
-export default Admin

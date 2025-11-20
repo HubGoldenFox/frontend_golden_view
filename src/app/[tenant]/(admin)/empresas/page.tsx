@@ -104,7 +104,7 @@ export default function Companies() {
             <Card
               key={company.id}
               onClick={() =>
-                navigate.push(`/${tenant?.slug}/admin/empresas/${company.id}`)
+                navigate.push(`/${tenant?.slug}/empresas/${company.id}`)
               }
               className="hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group relative bg-card"
             >

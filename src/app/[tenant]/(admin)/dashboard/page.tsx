@@ -109,7 +109,7 @@ export default function Dashboard() {
             <CardTitle>Empresas Recentes</CardTitle>
             {isSuperAdmin && (
               <Link
-                href={`/${tenant?.slug}/admin/empresas`}
+                href={`/${tenant?.slug}/empresas`}
                 className="text-sm text-primary hover:text-primary/80 font-medium flex items-center transition-colors"
               >
                 Ver todas <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -122,7 +122,7 @@ export default function Dashboard() {
                 <Link
                   href={
                     isSuperAdmin
-                      ? `/${tenant?.slug}/admin/empresas/${company.id}`
+                      ? `/${tenant?.slug}/empresas/${company.id}`
                       : '#'
                   }
                   key={company.id}
@@ -183,7 +183,7 @@ export default function Dashboard() {
           <CardHeader className="border-b-0 pb-2 flex flex-row items-center justify-between">
             <CardTitle>Relatórios Recentes</CardTitle>
             <Link
-              href={`/${tenant?.slug}/admin/relatorios`}
+              href={`/${tenant?.slug}/relatorios`}
               className="text-sm text-primary hover:text-primary/80 font-medium flex items-center transition-colors"
             >
               Gerenciar <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -193,7 +193,7 @@ export default function Dashboard() {
             <div className="space-y-3">
               {reports.slice(0, 5).map((report) => (
                 <Link
-                  href={`/${tenant?.slug}/admin/relatorios/${report.id}`}
+                  href={`/${tenant?.slug}/relatorios/${report.id}`}
                   key={report.id}
                   className="flex items-start gap-4 p-3 border border-border/40 hover:border-primary/30 hover:bg-muted/10 transition-all rounded-lg group"
                 >

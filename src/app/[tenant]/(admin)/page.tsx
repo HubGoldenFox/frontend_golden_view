@@ -8,11 +8,13 @@ const Admin = () => {
   const router = useRouter()
   const { tenant } = useAuthTenant()
 
-  const path = tenant?.subdominio || ''
+  const path = tenant?.slug || ''
 
   useEffect(() => {
     if (path) {
-      router.push(`/${path}/admin/dashboard`)
+      router.push(`/${path}/login`)
+    } else {
+      router.push(`/admin/login`)
     }
   }, [path])
 
