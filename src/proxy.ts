@@ -20,7 +20,7 @@ function extractSubdomain(req: NextRequest): string | null {
   return parts[0]
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
   const subdomain = extractSubdomain(req)
 

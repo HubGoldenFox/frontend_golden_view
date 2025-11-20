@@ -1,7 +1,25 @@
+// app/page.tsx
+'use client'
+
+import Loading from '@/components/custom/Loading'
+import { useTenant } from '@/contexts/TenantContext'
+import { useThemeCustomization } from '@/hooks/useThemeCustomization'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <p>Teste</p>
-    </div>
-  )
+  const { isLoading, tenant } = useTenant()
+  const { loading } = useThemeCustomization()
+  const router = useRouter()
+
+  // Redirecionamento
+  useEffect(() => {
+    console.log({ tenant })
+    if (!isLoading && !loading && tenant) {
+      const path = tenant.subdominio || tenant.dominio
+      router.push(`${path}/login`)
+    }
+  }, [router, isLoading, loading, tenant])
+
+  return <div>{(isLoading || loading) && <Loading />}</div>
 }
