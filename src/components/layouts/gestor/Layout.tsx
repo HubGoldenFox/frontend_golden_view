@@ -1,10 +1,12 @@
 'use client'
 
-import { menuAdmin, menuTenantAdmin, menuTenantGestor } from '@/data/menuItems'
+import { menuAdmin, menuTenantGestor } from '@/data/menuItems'
 import { useAuthTenant } from '@/hooks/useAuthTenant'
 import { usePathname } from 'next/navigation'
 import Header from './Header'
 import Sidebar from './Sidebar'
+
+import { getInitialReports } from '@/lib/mockData'
 
 const PUBLIC_ROUTES = ['/login', '/recuperar-senha', '/cadastro']
 
@@ -14,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const pathname = usePathname()
 
-  const domain = tenant?.subdominio || ''
+  const domain = tenant?.slug || ''
   const papel = auth?.sessao?.papel.toLowerCase()
 
   const isPublicRoute = PUBLIC_ROUTES.some((route) =>
@@ -29,24 +31,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     )
   }
 
-  // 🔄 Se for rota pública OU não estiver autenticado, mostra apenas o conteúdo
-  if (isPublicRoute || !auth.isAuthenticated) {
-    return <>{children}</>
-  }
-
   // 🔄 Layout completo para usuários autenticados
-  const menuItems =
-    isAdminMode && papel === 'admin'
-      ? menuAdmin('admin')
-      : papel === 'admin'
-        ? menuTenantAdmin(domain)
-        : menuTenantGestor(domain)
+  const menuItems = isAdminMode
+    ? menuAdmin('admin')
+    : menuTenantGestor(domain, getInitialReports(tenant?.slug || ''))
 
   return (
     <div className="flex h-screen bg-muted text-foreground">
       <Sidebar menuItems={menuItems} />
       <div className="flex flex-col flex-1 overflow-hidden">
-        <Header navItems={menuItems} />
+        <Header navItems={[]} />
         <main className="flex-1 overflow-y-auto mt-[-22px] p-4 md:p-2 bg-gradient-primary from-primary-50 to-background">
           {children}
         </main>

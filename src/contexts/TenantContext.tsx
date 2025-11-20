@@ -28,6 +28,7 @@ interface TenantContextProps {
   error: string | null
   refetchTenant: () => Promise<void>
   isAdminMode: boolean
+  setIsAdminMode: (isAdmin: boolean) => void
   setTenant: (data: TenantData | null) => void
 }
 
@@ -37,6 +38,7 @@ const TenantContext = createContext<TenantContextProps>({
   error: null,
   refetchTenant: async () => {},
   isAdminMode: false,
+  setIsAdminMode: () => {},
   setTenant: () => {},
 })
 
@@ -54,8 +56,10 @@ export const TenantProvider = ({
   const [tenant, setTenant] = useState<TenantData | null>(initialData || null)
   const [isLoading, setIsLoading] = useState(!initialData)
   const [error, setError] = useState<string | null>(null)
-  // Admin mode é quando não temos tenantSlug
-  const isAdminMode = tenantSlug === 'admin' || !tenantSlug
+  // Admin mode agora é um state que pode ser controlado
+  const [isAdminMode, setIsAdminMode] = useState<boolean>(
+    tenantSlug === 'admin' || !tenantSlug
+  )
 
   // Função para detectar se é um link/domínio
   const isLink = useCallback((text: string): boolean => {
@@ -125,6 +129,11 @@ export const TenantProvider = ({
     void refetchTenant()
   }, [tenantSlug, refetchTenant, initialData])
 
+  // Atualiza o isAdminMode quando o tenantSlug mudar
+  useEffect(() => {
+    setIsAdminMode(tenantSlug === 'admin' || !tenantSlug)
+  }, [tenantSlug])
+
   return (
     <TenantContext.Provider
       value={{
@@ -133,6 +142,7 @@ export const TenantProvider = ({
         error,
         refetchTenant,
         isAdminMode,
+        setIsAdminMode,
         setTenant: (data) => {
           setTenant(data)
           if (data) {

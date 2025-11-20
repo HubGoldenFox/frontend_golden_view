@@ -3,9 +3,9 @@
 import { Company, Group, Report, User } from '@/types/mockData'
 import React, { createContext, useContext, useState } from 'react'
 import {
+  getInitialReports,
   INITIAL_COMPANIES,
   INITIAL_GROUPS,
-  INITIAL_REPORTS,
   INITIAL_USERS,
 } from '../lib/mockData'
 import { generateId } from '../lib/utils'
@@ -46,7 +46,7 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
   const [users, setUsers] = useState<User[]>(INITIAL_USERS)
   const [companies, setCompanies] = useState<Company[]>(INITIAL_COMPANIES)
   const [groups, setGroups] = useState<Group[]>(INITIAL_GROUPS)
-  const [reports, setReports] = useState<Report[]>(INITIAL_REPORTS)
+  const [reports, setReports] = useState<Report[]>(getInitialReports('admin'))
 
   // --- Companies ---
   const addCompany = (data: Omit<Company, 'id' | 'createdAt'>) => {

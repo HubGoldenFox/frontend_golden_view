@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 
 export const useAuthTenant = () => {
   const auth = useAuth()
-  const { tenant, isAdminMode, isLoading } = useTenant()
+  const { tenant, isAdminMode, setIsAdminMode, isLoading } = useTenant()
   const router = useRouter()
 
   // 🔹 Configura API quando ambos estiverem disponíveis
@@ -60,6 +60,7 @@ export const useAuthTenant = () => {
     loginWithTenant,
     loginAsAdmin,
     isAdminMode,
+    setIsAdminMode,
     isLoading: auth.isLoading || isLoading,
   }
 }

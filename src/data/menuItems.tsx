@@ -27,6 +27,19 @@ interface MenuItem {
   children?: MenuItem[]
 }
 
+interface Item {
+  id: string
+  title: string
+  description?: string
+  category?: string
+  status?: string
+  createdAt?: string
+  type?: string
+  companyIds: string[]
+  groupIds?: string[]
+  icon?: React.ReactNode
+}
+
 export const menuAdmin = (path: string) => {
   return [
     {
@@ -239,71 +252,44 @@ export const menuTenantAdmin = (path: string) => {
   ]
 }
 
-export const menuTenantGestor = (path: string) => {
+export const menuTenantGestor = (path: string, itens: Item[]) => {
   return [
     {
       id: 'dashboard',
       title: 'Dashboard',
       path: `/${path}/dashboard`,
-      icon: <Home className="h-5 w-5" />,
-      enabled: true,
-    },
-
-    {
-      id: 'calls',
-      title: 'Atendimentos',
-      path: `/${path}/atendimentos`,
-      icon: <Phone className="h-5 w-5" />,
+      icon: <LayoutDashboard className="h-5 w-5" />,
       enabled: true,
     },
     {
-      id: 'users',
-      title: 'Usuários',
-      path: `/${path}/usuarios`,
-      icon: <Users className="h-5 w-5" />,
-      enabled: true,
+      title: 'Administração',
+      itens: [
+        {
+          id: 'users',
+          title: 'Usuários',
+          path: `/${path}/usuarios`,
+          icon: <UserCircle className="h-5 w-5" />,
+          enabled: true,
+        },
+        {
+          id: 'teams',
+          title: 'Grupos Globais',
+          path: `/${path}/grupos`,
+          icon: <Layers className="h-5 w-5" />,
+          enabled: true,
+        },
+      ],
     },
-    // {
-    //   id: 'roles',
-    //   title: 'Papéis',
-    //   path: `/${path}/papeis`,
-    //   icon: <Shield className="h-5 w-5" />,
-    //   enabled: true,
-    // },
     {
-      id: 'teams',
-      title: 'Equipes',
-      path: `/${path}/equipes`,
-      icon: <UsersRound className="h-5 w-5" />,
-      enabled: true,
-    },
-    // {
-    //   id: 'schedule',
-    //   title: 'Agenda',
-    //   path: '/schedule',
-    //   icon: <Calendar size={20} />,
-    //   enabled: true,
-    // },
-    // {
-    //   id: 'trainings',
-    //   title: 'Treinamentos',
-    //   path: '/trainings',
-    //   icon: <BookOpen className="h-5 w-5" />,
-    //   enabled: true,
-    // },
-    {
-      id: 'analytics',
-      title: 'Análises',
-      path: `/${path}/analises`,
-      icon: <Brain className="h-5 w-5" />,
+      id: 'settings',
+      title: 'Configurações',
+      path: `/${path}/configuracoes`,
+      icon: <Settings className="h-5 w-5" />,
       enabled: true,
     },
     {
-      id: 'reports',
-      title: 'Relatórios',
-      path: `/${path}/relatorios`,
-      icon: <FileText className="h-5 w-5" />,
-      enabled: true,
+      title: 'Meus Relatórios',
+      itens: itens,
     },
   ]
 }

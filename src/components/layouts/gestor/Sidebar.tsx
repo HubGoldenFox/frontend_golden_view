@@ -3,23 +3,29 @@
 import Logo from '@/components/Logo'
 import { useAuthTenant } from '@/hooks/useAuthTenant'
 import { cn } from '@/lib/utils'
-import { ChevronDown, ChevronRight, User } from 'lucide-react'
+import { User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 
+// Interfaces
 interface MenuItem {
   id: string
   path: string
   title: string
   icon: React.ReactNode
   enabled?: boolean
-  children?: MenuItem[]
 }
 
+interface MenuGroup {
+  title: string
+  itens: MenuItem[]
+}
+
+type MenuEntry = MenuItem | MenuGroup
+
 interface SidebarProps {
-  menuItems: MenuItem[]
+  menuItems: MenuEntry[]
   user?: {
     name: string
     email: string
@@ -29,46 +35,28 @@ interface SidebarProps {
 }
 
 interface MenuGroupProps {
-  item: MenuItem
-  openGroups: string[]
-  toggleGroup: (groupId: string) => void
+  group: MenuGroup
   pathname: string
 }
 
-function MenuGroup({
-  item,
-  openGroups,
-  toggleGroup,
-  pathname,
-}: MenuGroupProps) {
+function MenuGroup({ group, pathname }: MenuGroupProps) {
   return (
     <div>
-      <button
-        onClick={() => toggleGroup(item.id)}
-        className={cn(
-          'flex items-center w-full px-3 py-2 text-sm font-medium rounded-md',
-          'hover:bg-muted hover:text-foreground',
-          pathname.startsWith(item.path)
-            ? 'bg-muted text-foreground'
-            : 'text-muted-foreground'
-        )}
-      >
-        {item.icon}
-        <span className="ml-3 flex-1">{item.title}</span>
-        {openGroups.includes(item.id) ? (
-          <ChevronDown size={16} />
-        ) : (
-          <ChevronRight size={16} />
-        )}
-      </button>
+      {/* Título do grupo - alinhado normalmente à esquerda */}
+      <div className="px-3 py-2">
+        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          {group.title}
+        </h3>
+      </div>
 
-      {openGroups.includes(item.id) && (
-        <ul className="mt-1 pl-8 space-y-1">
-          {item.children?.map((child) => (
-            <MenuItem key={child.id} item={child} pathname={pathname} />
+      {/* Itens do grupo */}
+      <ul className="space-y-1">
+        {group.itens
+          ?.filter((item) => item.enabled !== false)
+          .map((item) => (
+            <MenuItem key={item.id} item={item} pathname={pathname} />
           ))}
-        </ul>
-      )}
+      </ul>
     </div>
   )
 }
@@ -84,7 +72,7 @@ function MenuItem({ item, pathname }: MenuItemProps) {
       href={item.path}
       className={cn(
         'flex items-center px-3 py-2 text-sm font-medium rounded-md',
-        'hover:bg-muted hover:text-foreground',
+        'hover:bg-muted hover:text-foreground transition-colors',
         pathname === item.path
           ? 'bg-muted text-foreground'
           : 'text-muted-foreground'
@@ -140,24 +128,23 @@ function SidebarFooter({ user }: SidebarFooterProps) {
   )
 }
 
-export default function Sidebar({ menuItems, user }: SidebarProps) {
+// Helper function para verificar se é um grupo
+function isMenuGroup(entry: MenuEntry): entry is MenuGroup {
+  return 'itens' in entry && 'title' in entry
+}
+
+// Helper function para verificar se é um item
+function isMenuItem(entry: MenuEntry): entry is MenuItem {
+  return 'path' in entry && 'id' in entry
+}
+
+export default function Sidebar({ menuItems }: SidebarProps) {
   const pathname = usePathname()
-  const [openGroups, setOpenGroups] = useState<string[]>([])
-
   const { tenant } = useAuthTenant()
-
-  const toggleGroup = (groupId: string) => {
-    setOpenGroups((prev) =>
-      prev.includes(groupId)
-        ? prev.filter((id) => id !== groupId)
-        : [...prev, groupId]
-    )
-  }
 
   return (
     <aside className="hidden lg:flex flex-col w-64 bg-card text-foreground border-r border-border h-screen">
       {/* Logo */}
-
       <div className="flex items-center justify-center px-6 py-4 border-b border-border">
         <Link
           href={`/${tenant?.slug}/dashboard`}
@@ -171,20 +158,22 @@ export default function Sidebar({ menuItems, user }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-4 px-3">
-        <ul className="space-y-1">
+        <ul className="space-y-4">
           {menuItems
-            .filter((item) => item.enabled !== false)
-            .map((item) => (
-              <li key={item.id}>
-                {item.children ? (
-                  <MenuGroup
-                    item={item}
-                    openGroups={openGroups}
-                    toggleGroup={toggleGroup}
-                    pathname={pathname}
-                  />
+            .filter((entry) => {
+              // Filtrar itens desabilitados
+              if (isMenuItem(entry)) {
+                return entry.enabled !== false
+              }
+              // Grupos são sempre exibidos, mas podem ter itens filtrados internamente
+              return true
+            })
+            .map((entry, index) => (
+              <li key={isMenuItem(entry) ? entry.id : `group-${index}`}>
+                {isMenuGroup(entry) ? (
+                  <MenuGroup group={entry} pathname={pathname} />
                 ) : (
-                  <MenuItem item={item} pathname={pathname} />
+                  <MenuItem item={entry} pathname={pathname} />
                 )}
               </li>
             ))}

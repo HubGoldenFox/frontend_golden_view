@@ -1,4 +1,8 @@
+'use client'
+
+import { useAuthTenant } from '@/hooks/useAuthTenant'
 import { Company, Group, Report, User, UserRole } from '@/types/mockData'
+import { FileText } from 'lucide-react'
 
 export const INITIAL_COMPANIES: Company[] = [
   {
@@ -109,9 +113,12 @@ const SAMPLE_HTML_DASHBOARD = `
 </div>
 `
 
-export const INITIAL_REPORTS: Report[] = [
+// Função para obter os relatórios iniciais - agora ela recebe o tenant como parâmetro
+export const getInitialReports = (tenantSlug: string): Report[] => [
   {
     id: 'r1',
+    path: `/${tenantSlug}/relatorios/r1`,
+    icon: <FileText size={20} />,
     title: 'Retail Analysis Sample',
     description: 'Análise de vendas de varejo (Microsoft Sample).',
     category: 'Vendas',
@@ -126,6 +133,8 @@ export const INITIAL_REPORTS: Report[] = [
   },
   {
     id: 'r2',
+    path: `/${tenantSlug}/relatorios/r2`,
+    icon: <FileText size={20} />,
     title: 'Regional Sales Analysis',
     description: 'Performance por região geográfica.',
     category: 'Financeiro',
@@ -140,6 +149,8 @@ export const INITIAL_REPORTS: Report[] = [
   },
   {
     id: 'r3',
+    path: `/${tenantSlug}/relatorios/r3`,
+    icon: <FileText size={20} />,
     title: 'Painel Operacional IT',
     description: 'Status dos servidores em tempo real (HTML Custom).',
     category: 'Operações',
@@ -151,3 +162,9 @@ export const INITIAL_REPORTS: Report[] = [
     groupIds: ['g3'],
   },
 ]
+
+// Hook personalizado para usar os relatórios
+export const useInitialReports = () => {
+  const { tenant } = useAuthTenant()
+  return getInitialReports(tenant?.slug || 'tenant')
+}

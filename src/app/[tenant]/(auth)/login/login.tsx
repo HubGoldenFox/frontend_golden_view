@@ -17,6 +17,7 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
     tenant,
     isLoading: tenantLoading,
     isAdminMode,
+    setIsAdminMode,
     loginWithTenant,
     loginAsAdmin,
     auth,
@@ -93,7 +94,9 @@ const LoginPage = ({ setControl }: Login): ReactElement => {
 
     // TODO: Ajustar login para tenant
     if (username.trim().toLowerCase() === 'empresa' && password === 'empresa') {
+      setIsAdminMode(false)
       router.push(`/${tenant?.slug}/dashboard`)
+      return
     }
 
     setIsLoading(true)

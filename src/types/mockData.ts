@@ -37,6 +37,8 @@ export type ReportIntegrationType = 'powerbi' | 'custom'
 
 export interface Report {
   id: string
+  path: string
+  icon?: React.ReactNode
   title: string
   description: string
   category: string
