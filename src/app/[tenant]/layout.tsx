@@ -1,5 +1,4 @@
 // app/[tenant]/layout.tsx
-import { DynamicFavicon } from '@/components/layouts/DynamicFavicon'
 import { TenantProvider } from '@/contexts/TenantContext'
 import { Metadata } from 'next'
 
@@ -10,16 +9,13 @@ interface TenantLayoutProps {
 
 async function fetchTenantDataServer(slug: string) {
   try {
+    console.log(slug)
     const response = await fetch(
-      `${process.env.API_URL}/empresas/tenant?subdominio=${slug}`,
+      `${process.env.API_URL}/tenants/?slug=${slug}`,
       {
-        headers: {
-          Authorization: `Bearer ${process.env.API_TOKEN}`,
-        },
         next: { revalidate: 60 },
       }
     )
-
     if (!response.ok) return null
     const data = await response.json()
     return data.data[0] || null
@@ -52,7 +48,6 @@ export default async function TenantLayout({
 
   return (
     <TenantProvider tenantSlug={tenant} initialData={tenantData}>
-      <DynamicFavicon />
       {children}
     </TenantProvider>
   )
