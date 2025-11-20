@@ -79,7 +79,7 @@ export function useThemeCustomization() {
   const createDefaultTheme = useCallback(
     (): ThemeGeneral => ({
       appearance: {
-        themeMode: 'system',
+        themeMode: 'light',
         borderRadius: 6,
         fontFamily: 'Inter, sans-serif',
       },

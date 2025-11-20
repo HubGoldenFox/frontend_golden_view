@@ -81,7 +81,7 @@ export default function SettingsPage() {
   // Helper para obter aparência com fallback
   const getAppearance = (): ThemeAppearance => {
     const defaultAppearance: ThemeAppearance = {
-      themeMode: 'system',
+      themeMode: 'light',
       borderRadius: 8,
       fontFamily: "'Inter', sans-serif",
     }
